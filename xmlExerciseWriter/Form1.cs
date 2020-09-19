@@ -90,12 +90,14 @@ namespace xmlExerciseWriter
                         txtExercise.Text = "";
                         txtExTime.Text = "";
                         grdExercises.Rows.Clear();
+                        grdExercises.Columns.Clear();
                         grdExercises.Columns.Add("WorkOut", "WorkOut");
                         grdExercises.Columns.Add("Time", "Time");
                         foreach (workout wk in wo)
                         {
                             grdExercises.Rows.Add(wk.Name, wk.Time);
                         }
+                        txtExercise.Focus();
                     }
                     else
                     {
