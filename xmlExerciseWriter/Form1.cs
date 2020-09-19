@@ -14,6 +14,8 @@ namespace xmlExerciseWriter
         public Form1()
         {
             InitializeComponent();
+            grdExercises.Columns.Add("WorkOut", "WorkOut");
+            grdExercises.Columns.Add("Time", "Time");
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -90,9 +92,8 @@ namespace xmlExerciseWriter
                         txtExercise.Text = "";
                         txtExTime.Text = "";
                         grdExercises.Rows.Clear();
-                        grdExercises.Columns.Clear();
-                        grdExercises.Columns.Add("WorkOut", "WorkOut");
-                        grdExercises.Columns.Add("Time", "Time");
+                        //grdExercises.Columns.Clear();
+                        
                         foreach (workout wk in wo)
                         {
                             grdExercises.Rows.Add(wk.Name, wk.Time);
