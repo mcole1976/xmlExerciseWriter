@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
+using ExerciseMethodShare;
 
 namespace xmlExerciseWriter
 {
     public partial class Form1 : Form
     {
-        List<workout> wo = new List<workout>();
+        List<ExerciseMethodShare.WorkOut> wo = new List<ExerciseMethodShare.WorkOut>();
         int counter = 0;
         string xml = "";
         public Form1()
@@ -82,7 +83,7 @@ namespace xmlExerciseWriter
                 {
                     if (time > 0 && time < 121)
                     {
-                        workout w = new workout();
+                        ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
                         w.Name = txtExercise.Text;
                         w.Id = counter++;
                         w.Time = time;
@@ -94,7 +95,7 @@ namespace xmlExerciseWriter
                         grdExercises.Rows.Clear();
                         //grdExercises.Columns.Clear();
                         
-                        foreach (workout wk in wo)
+                        foreach (ExerciseMethodShare.WorkOut wk in wo)
                         {
                             grdExercises.Rows.Add(wk.Name, wk.Time);
                         }
@@ -127,7 +128,7 @@ namespace xmlExerciseWriter
 
             }
 
-            foreach (workout w in wo)
+            foreach (ExerciseMethodShare.WorkOut w in wo)
             {
                 using (StreamWriter sw = File.AppendText(fileloc))
                 {
@@ -153,7 +154,10 @@ namespace xmlExerciseWriter
         {
             bool TenOn, FifteenOn, TwentyOn, ThirtyOn;
             int checkCount = 0;
+            int chkCountEx = 0;
             int timetoRun = 0;
+            KeyValuePair<string, bool> kvp;
+            
 
             if(String.IsNullOrEmpty(txtRndRoutine.Text))
             {
@@ -188,6 +192,25 @@ namespace xmlExerciseWriter
                 checkCount++;
             }
 
+            if (chkLegs.Checked == true)
+            {
+                chkCountEx++;
+                kvp = new KeyValuePair<string, bool>("Legs", true);
+            }
+
+            if (ChkUpper.Checked == true)
+            {
+                chkCountEx++;
+                kvp = new KeyValuePair<string, bool>("Upper Body", true);
+            }
+
+            if (chkAbs.Checked == true)
+            {
+                chkCountEx++;
+                kvp = new KeyValuePair<string, bool>("Abs", true);
+            }
+
+
             if (checkCount < 1)
             {
                 lbErr.Text = lbErr.Text = "You need to Check a time frame";
@@ -199,46 +222,24 @@ namespace xmlExerciseWriter
                 return;
             }
 
+            if(chkCountEx < 1 )
+            {
+                lbErr.Text = lbErr.Text = "You need to Check an Exercise Type";
+                return;
+            }
+
+            if (chkCountEx > 1)
+            {
+                lbErr.Text = lbErr.Text = "You need to Check only one Exercise Type";
+                return;
+            }
+
             List<int> intervals = new List<int>();
 
-            if (timetoRun >= 30)
-            {
-                intervals.Add(30);
-                intervals.Add(45);
-                intervals.Add(60);
-                intervals.Add(90);
-                intervals.Add(120);
-            }
-            else
-            {
-                intervals.Add(10);
-                intervals.Add(15);
-                intervals.Add(20);
-                intervals.Add(30);
-                intervals.Add(45);
-                intervals.Add(60);
+            
 
-            }
+            List<string> exercises = ExercisePatterns.exerciseStringList();
 
-            List<string> exercises = new List<string>();
-
-            DirectoryInfo d = new DirectoryInfo(@"C:\Users\marcu\Pictures\exercises\");//Assuming Test is your Folder
-            FileInfo[] Files = d.GetFiles("*.jpg"); //Getting Text files
-            string str = "";
-
-
-            foreach (FileInfo file in Files)
-            {
-                str = (file.Name);
-                int fileExtPos = str.LastIndexOf(".");
-
-                if (fileExtPos >= 0)
-                    str = str.Substring(0, fileExtPos);
-
-                exercises.Add(str);
-            }
-
-            int x = 45;
 
             List<int> breakInterval = new List<int>();
             fnSetBreak(ref breakInterval, timetoRun );
@@ -247,15 +248,28 @@ namespace xmlExerciseWriter
 
         }
 
-        private void fnCreateRoutine(int timetoRun, List<string> exercises, List<int> bi, ref List<workout> wo)
+        private void fnCreateRoutine(int timetoRun, List<string> exercises, List<int> bi, ref List<ExerciseMethodShare.WorkOut> wo)
         {
             //int listCount = 0;
             int compiledTime = 0;
             bool breakfound = false;
+
+            ExerciseMethodShare.ResultBase[] rbArr = ExercisePatterns.CreateResBaseList();
+
+            List<ExerciseMethodShare.ResultBase> rb = rbArr.ToList();
+
+            // divide exercises up
+            
+            // get a list of Exercises that match Chosen Exercise Type
+
+            // get list of exercise routines to pick off exercises
+
+
+
             if (timetoRun == 30)
             {
                 int r = timetoRun * 2;
-                workout w = new workout();
+                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
                 while (r > 0)
                 {
                     
@@ -285,7 +299,7 @@ namespace xmlExerciseWriter
             else if(timetoRun == 20)
             {
                 int r = timetoRun * 2;
-                workout w = new workout();
+                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
                 while (r > 0)
                 {
 
@@ -315,7 +329,7 @@ namespace xmlExerciseWriter
             else if (timetoRun == 15)
             {
                 int r = timetoRun * 2;
-                workout w = new workout();
+                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
                 while (r > 0)
                 {
 
@@ -344,7 +358,7 @@ namespace xmlExerciseWriter
             else if (timetoRun == 10)
             {
                 int r = timetoRun * 2;
-                workout w = new workout();
+                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
                 while (r > 0)
                 {
 
