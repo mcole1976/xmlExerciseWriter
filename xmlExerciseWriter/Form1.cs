@@ -156,7 +156,7 @@ namespace xmlExerciseWriter
             int checkCount = 0;
             int chkCountEx = 0;
             int timetoRun = 0;
-            KeyValuePair<string, bool> kvp;
+            string[] exChosen = new string[1];
             
 
             if(String.IsNullOrEmpty(txtRndRoutine.Text))
@@ -195,19 +195,19 @@ namespace xmlExerciseWriter
             if (chkLegs.Checked == true)
             {
                 chkCountEx++;
-                kvp = new KeyValuePair<string, bool>("Legs", true);
+                exChosen = new string[1]{  "Legs"};
             }
 
             if (ChkUpper.Checked == true)
             {
                 chkCountEx++;
-                kvp = new KeyValuePair<string, bool>("Upper Body", true);
+                exChosen = new string[1]  { "Upper Body"};
             }
 
             if (chkAbs.Checked == true)
             {
                 chkCountEx++;
-                kvp = new KeyValuePair<string, bool>("Abs", true);
+                exChosen = new string[1] { "Abs" };
             }
 
 
@@ -236,19 +236,17 @@ namespace xmlExerciseWriter
 
             List<int> intervals = new List<int>();
 
-            
-
             List<string> exercises = ExercisePatterns.exerciseStringList();
 
 
             List<int> breakInterval = new List<int>();
             fnSetBreak(ref breakInterval, timetoRun );
-            
-            fnCreateRoutine(timetoRun, exercises, breakInterval, ref wo);
+
+            fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen[0]);
 
         }
-
-        private void fnCreateRoutine(int timetoRun, List<string> exercises, List<int> bi, ref List<ExerciseMethodShare.WorkOut> wo)
+        List<string> currExs = new List<string>();
+        private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShare.WorkOut> wo, string exType)
         {
             //int listCount = 0;
             int compiledTime = 0;
@@ -258,13 +256,68 @@ namespace xmlExerciseWriter
 
             List<ExerciseMethodShare.ResultBase> rb = rbArr.ToList();
 
+            //rb = (from r in rb where r.Exercise_Type == exType select r).ToList();
+
+            List<string> exNames = new List<string>();
+            List<string> exercises = new List<string>();
+
+            exercises = (from rs in rb select rs.Exercise_Name).Distinct().ToList();
+
+            exNames = (from rEx in rb select rEx.Searched_exercise).Distinct().ToList();
             // divide exercises up
-            
+
             // get a list of Exercises that match Chosen Exercise Type
 
             // get list of exercise routines to pick off exercises
+            string ExLoc = Properties.Resources.XMLExerciseLoc.ToString();
+            ExLoc = ExLoc + @"\" ;
+            List<WorkOut> workOutsMain = new List<WorkOut>();
 
+            foreach(string s in exNames)
+            {
+                List<WorkOut> wOUT = new List<WorkOut>();
 
+                WorkOut[] wOutArr = ExercisePatterns.readExercise(s);
+                List<string> exercisess = new List<string>();
+                exercisess = (from r in wOutArr select r.Name).ToList();
+
+                List<string> types = new List<string>();
+
+                types = (from m in rb where m.Searched_exercise == s select m.Exercise_Type).Distinct().ToList(); 
+
+                
+
+                foreach(WorkOut wCheck in wOutArr )
+                {
+                    if (types.Count == 1  && types[0] ==  exType)
+                    {
+                        string wNm = wCheck.Name;
+                        int wCnt = (from r in rb where r.Exercise_Name == wNm select r).Count();
+                        if (wNm == "Rest" || wNm == "rest" || wNm == "Complete" || wNm == "complete")
+                        {
+
+                        }
+                        else if (wNm.Contains("stretch"))
+                        {
+
+                        }
+                        else if (wCnt < 1)
+                        {
+                            wCheck.Id = 0;
+                            workOutsMain.Add(wCheck);
+                        }
+                        else if (wCnt > 1)
+                        {
+                            currExs.Add(wCheck.Name);
+                        }
+                    }
+
+                }
+                workOutsMain.AddRange(wOUT);      
+            }
+            
+            List<string> aiEx = new List<string>();
+            aiEx = (from a in workOutsMain select a.Name).Distinct().ToList();
 
             if (timetoRun == 30)
             {
