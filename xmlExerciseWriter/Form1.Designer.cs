@@ -48,13 +48,14 @@
             this.ChkUpper = new System.Windows.Forms.CheckBox();
             this.chkAbs = new System.Windows.Forms.CheckBox();
             this.chkLegs = new System.Windows.Forms.CheckBox();
+            this.ckkFullB = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdExercises)).BeginInit();
             this.SuspendLayout();
             // 
             // txtExercise
             // 
             this.txtExercise.Location = new System.Drawing.Point(370, 182);
-            this.txtExercise.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtExercise.Margin = new System.Windows.Forms.Padding(6);
             this.txtExercise.Name = "txtExercise";
             this.txtExercise.Size = new System.Drawing.Size(261, 47);
             this.txtExercise.TabIndex = 0;
@@ -62,7 +63,7 @@
             // txtExTime
             // 
             this.txtExTime.Location = new System.Drawing.Point(370, 295);
-            this.txtExTime.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtExTime.Margin = new System.Windows.Forms.Padding(6);
             this.txtExTime.Name = "txtExTime";
             this.txtExTime.Size = new System.Drawing.Size(261, 47);
             this.txtExTime.TabIndex = 1;
@@ -90,7 +91,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(370, 400);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(200, 59);
             this.button1.TabIndex = 4;
@@ -102,7 +103,7 @@
             // 
             this.chkComp.AutoSize = true;
             this.chkComp.Location = new System.Drawing.Point(716, 406);
-            this.chkComp.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkComp.Margin = new System.Windows.Forms.Padding(6);
             this.chkComp.Name = "chkComp";
             this.chkComp.Size = new System.Drawing.Size(299, 45);
             this.chkComp.TabIndex = 5;
@@ -123,7 +124,7 @@
             // txtRoutine
             // 
             this.txtRoutine.Location = new System.Drawing.Point(370, 80);
-            this.txtRoutine.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtRoutine.Margin = new System.Windows.Forms.Padding(6);
             this.txtRoutine.Name = "txtRoutine";
             this.txtRoutine.Size = new System.Drawing.Size(261, 47);
             this.txtRoutine.TabIndex = 7;
@@ -143,7 +144,7 @@
             // 
             this.grdExercises.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdExercises.Location = new System.Drawing.Point(1156, 80);
-            this.grdExercises.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.grdExercises.Margin = new System.Windows.Forms.Padding(6);
             this.grdExercises.Name = "grdExercises";
             this.grdExercises.RowHeadersWidth = 51;
             this.grdExercises.Size = new System.Drawing.Size(497, 797);
@@ -153,7 +154,7 @@
             // btnRnd
             // 
             this.btnRnd.Location = new System.Drawing.Point(51, 564);
-            this.btnRnd.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnRnd.Margin = new System.Windows.Forms.Padding(6);
             this.btnRnd.Name = "btnRnd";
             this.btnRnd.Size = new System.Drawing.Size(200, 156);
             this.btnRnd.TabIndex = 10;
@@ -165,7 +166,7 @@
             // 
             this.Chk10.AutoSize = true;
             this.Chk10.Location = new System.Drawing.Point(336, 564);
-            this.Chk10.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Chk10.Margin = new System.Windows.Forms.Padding(6);
             this.Chk10.Name = "Chk10";
             this.Chk10.Size = new System.Drawing.Size(203, 45);
             this.Chk10.TabIndex = 11;
@@ -176,7 +177,7 @@
             // 
             this.chk20.AutoSize = true;
             this.chk20.Location = new System.Drawing.Point(336, 650);
-            this.chk20.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chk20.Margin = new System.Windows.Forms.Padding(6);
             this.chk20.Name = "chk20";
             this.chk20.Size = new System.Drawing.Size(203, 45);
             this.chk20.TabIndex = 12;
@@ -187,7 +188,7 @@
             // 
             this.chk15.AutoSize = true;
             this.chk15.Location = new System.Drawing.Point(595, 564);
-            this.chk15.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chk15.Margin = new System.Windows.Forms.Padding(6);
             this.chk15.Name = "chk15";
             this.chk15.Size = new System.Drawing.Size(203, 45);
             this.chk15.TabIndex = 13;
@@ -198,7 +199,7 @@
             // 
             this.Chk30.AutoSize = true;
             this.Chk30.Location = new System.Drawing.Point(595, 650);
-            this.Chk30.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Chk30.Margin = new System.Windows.Forms.Padding(6);
             this.Chk30.Name = "Chk30";
             this.Chk30.Size = new System.Drawing.Size(203, 45);
             this.Chk30.TabIndex = 14;
@@ -208,7 +209,7 @@
             // txtRndRoutine
             // 
             this.txtRndRoutine.Location = new System.Drawing.Point(336, 746);
-            this.txtRndRoutine.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtRndRoutine.Margin = new System.Windows.Forms.Padding(6);
             this.txtRndRoutine.Name = "txtRndRoutine";
             this.txtRndRoutine.Size = new System.Drawing.Size(261, 47);
             this.txtRndRoutine.TabIndex = 15;
@@ -253,11 +254,22 @@
             this.chkLegs.Text = "Legs";
             this.chkLegs.UseVisualStyleBackColor = true;
             // 
+            // ckkFullB
+            // 
+            this.ckkFullB.AutoSize = true;
+            this.ckkFullB.Location = new System.Drawing.Point(870, 819);
+            this.ckkFullB.Name = "ckkFullB";
+            this.ckkFullB.Size = new System.Drawing.Size(178, 45);
+            this.ckkFullB.TabIndex = 19;
+            this.ckkFullB.Text = "Full Body";
+            this.ckkFullB.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1700, 922);
+            this.Controls.Add(this.ckkFullB);
             this.Controls.Add(this.chkLegs);
             this.Controls.Add(this.chkAbs);
             this.Controls.Add(this.ChkUpper);
@@ -278,7 +290,7 @@
             this.Controls.Add(this.lbExName);
             this.Controls.Add(this.txtExTime);
             this.Controls.Add(this.txtExercise);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.grdExercises)).EndInit();
@@ -309,6 +321,7 @@
         private System.Windows.Forms.CheckBox ChkUpper;
         private System.Windows.Forms.CheckBox chkAbs;
         private System.Windows.Forms.CheckBox chkLegs;
+        private System.Windows.Forms.CheckBox ckkFullB;
     }
 }
 

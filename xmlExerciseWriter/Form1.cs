@@ -292,7 +292,8 @@ namespace xmlExerciseWriter
                     if (types.Count == 1  && types[0] ==  exType)
                     {
                         string wNm = wCheck.Name;
-                        int wCnt = (from r in rb where r.Exercise_Name == wNm select r).Count();
+                        int wCnt = 0;
+                        wCnt = (from r in rb where r.Exercise_Name == wNm && r.Exercise_Type == exType select r).Count();
                         if (wNm == "Rest" || wNm == "rest" || wNm == "Complete" || wNm == "complete")
                         {
 
@@ -318,102 +319,240 @@ namespace xmlExerciseWriter
             
             List<string> aiEx = new List<string>();
             aiEx = (from a in workOutsMain select a.Name).Distinct().ToList();
+            
+            currExs = currExs.Distinct().ToList();
 
             if (timetoRun == 30)
             {
                 int r = timetoRun * 2;
-                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                int totalTime = r;
+                bool newOld = true;
+                
                 while (r > 0)
                 {
-                    
-                    foreach(int t in bi)
+                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                    if (r % 2 == 0 && r != 0)
+                    {
+                        newOld = true;
+                    }
+                    else
+                    {
+                        newOld = false;
+                    }
+
+                    foreach (int t in bi)
                     {
                         if (t == compiledTime)
                         {
                             breakfound = true;
                             w.Name = "Rest";
-                            w.Id = r;
+                            w.Id = totalTime - r;
                             w.Time = 30;
                         }
                     }
+
+                    bool directionFound = false;
+                    string directionName = "";
+                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
+
+
                     if (breakfound == false)
                     {
-                        w.Name = fnSetWorkout(exercises);
-                        w.Id = r;
+                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
+                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
+                        {
+                            directionFound = true;
+                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
+                            {
+                                directionName = "Left".ToUpper();
+                            }
+                            else
+                            {
+                                directionName = "Right".ToUpper();
+                            }
+                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
+                            w2.Id = (totalTime - r) - 1;
+                            w2.Time = 30;
+                        }
+                        w.Id = totalTime - r;
                         w.Time = 30;
                     }
                     breakfound = false;
-                    wo.Add(w);
+                    
                     compiledTime = compiledTime + 30;
-                    r--;
+
+                    if (directionFound)
+                    {
+                        wo.Add(w);
+                        wo.Add(w2);
+                        r = r - 2;
+                    }
+                    else
+                    {
+                        wo.Add(w);
+                        r--;
+                    }
                 }
             
             }
             else if(timetoRun == 20)
             {
                 int r = timetoRun * 2;
-                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                int totalTime = r;
+                bool newOld = true;
+                
                 while (r > 0)
                 {
-
+                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                    if (r % 2 == 0 && r != 0)
+                    {
+                        newOld = true;
+                    }
+                    else
+                    {
+                        newOld = false;
+                    }
                     foreach (int t in bi)
                     {
                         if (t == compiledTime)
                         {
                             breakfound = true;
                             w.Name = "Rest";
-                            w.Id = r;
+                            w.Id = totalTime - r;
                             w.Time = 30;
                         }
                     }
+
+                    bool directionFound = false;
+                    string directionName = "";
+                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
+
                     if (breakfound == false)
                     {
-                        w.Name = fnSetWorkout(exercises);
-                        w.Id = r;
+                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
+                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
+                        {
+                            directionFound = true;
+                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
+                            {
+                                directionName = "Left".ToUpper();
+                            }
+                            else
+                            {
+                                directionName = "Right".ToUpper();
+                            }
+                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
+                            w2.Id = (totalTime - r) - 1;
+                            w2.Time = 30;
+                        }
+                        w.Id = totalTime - r;
                         w.Time = 30;
                     }
                     breakfound = false;
-                    wo.Add(w);
                     compiledTime = compiledTime + 30;
-                    r--;
+
+                    if (directionFound)
+                    {
+                        wo.Add(w);
+                        wo.Add(w2);
+                        r = r - 2;
+                    }
+                    else
+                    {
+                        wo.Add(w);
+                        r--;
+                    }
                 }
 
             }
             else if (timetoRun == 15)
             {
                 int r = timetoRun * 2;
-                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                int totalTime = r;
+                bool newOld = true;
+                
                 while (r > 0)
                 {
-
+                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                    if (r % 2 == 0 && r != 0)
+                    {
+                        newOld = true;
+                    }
+                    else
+                    {
+                        newOld = false;
+                    }
                     foreach (int t in bi)
                     {
                         if (t == compiledTime)
                         {
+
                             breakfound = true;
                             w.Name = "Rest";
-                            w.Id = r;
+                            w.Id = totalTime - r;
                             w.Time = 30;
                         }
                     }
+
+                    bool directionFound = false;
+                    string directionName = "";
+                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
+
                     if (breakfound == false)
                     {
-                        w.Name = fnSetWorkout(exercises);
-                        w.Id = r;
+                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
+                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
+                        {
+                            directionFound = true;
+                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
+                            {
+                                directionName = "Left".ToUpper();
+                            }
+                            else
+                            {
+                                directionName = "Right".ToUpper();
+                            }
+                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
+                            w2.Id = (totalTime - r) - 1;
+                            w2.Time = 30;
+                        }
+                        w.Id = totalTime - r;
                         w.Time = 30;
+
                     }
                     breakfound = false;
-                    wo.Add(w);
                     compiledTime = compiledTime + 30;
-                    r--;
+
+                    if (directionFound)
+                    {
+                        wo.Add(w);
+                        wo.Add(w2);
+                        r = r - 2;
+                    }
+                    else
+                    {
+                        wo.Add(w);
+                        r--;
+                    }
                 }
             }
             else if (timetoRun == 10)
             {
                 int r = timetoRun * 2;
-                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                int totalTime = r;
+                bool newOld = true;
+                
                 while (r > 0)
                 {
+                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                    if (r % 2 == 0 && r != 0)
+                    {
+                        newOld = true;
+                    }
+                    else
+                    {
+                        newOld = false;
+                    }
 
                     foreach (int t in bi)
                     {
@@ -421,40 +560,108 @@ namespace xmlExerciseWriter
                         {
                             breakfound = true;
                             w.Name = "Rest";
-                            w.Id = r;
+                            w.Id = totalTime - r;
                             w.Time = 30;
                         }
                     }
+                    bool directionFound = false;
+                    string directionName = "";
+                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
                     if (breakfound == false)
                     {
-                        w.Name = fnSetWorkout(exercises);
-                        w.Id = r;
+                       
+                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
+                        if(w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
+                        {
+                            directionFound = true;
+                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
+                            {
+                                directionName = "Left".ToUpper();
+                            }
+                            else
+                            {
+                                directionName = "Right".ToUpper();
+                            }
+                            w2.Name =  fnGetRIGHTLEFT(w.Name, directionName, currExs);
+                            w2.Id = (totalTime - r)-1;
+                            w2.Time = 30;
+                        }
+                        w.Id = totalTime - r;
                         w.Time = 30;
                     }
                     breakfound = false;
-                    wo.Add(w);
+                   
                     compiledTime = compiledTime + 30;
-                    r--;
+                    if (directionFound)
+                    {
+                        wo.Add(w);
+                        wo.Add(w2);
+                        r = r-2;
+                    }
+                    else
+                    {
+                        wo.Add(w);
+                        r--;
+                    }
+                    
                 }
 
             }
 
             string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\" + txtRndRoutine.Text + ".xml";
-
+            int f = wo.Count;
             fnwriteXML(fileloc);
 
         }
 
-        private string fnSetWorkout(List<string> exercises)
+        private string fnGetRIGHTLEFT(string name, string directionName, List <string> exs)
+        {
+            string directionToLookFor = "";
+            string stringPart = "";
+            int  at = 0;
+            string resPortion = "";
+            string returnResult = "";
+
+            if (directionName == "RIGHT" )
+            {
+                directionToLookFor = "LEFT";
+                name = name.ToUpper();
+                at = name.IndexOf(directionToLookFor);
+                resPortion = name.Substring(0, at).ToUpper();
+                returnResult = (from r in exs where r.ToUpper().Contains(resPortion) && r.ToUpper().Contains(directionName) select r).FirstOrDefault();
+            }
+            else if(directionName == "LEFT")
+            {
+                directionToLookFor = "RIGHT";
+                name = name.ToUpper();
+                at = name.IndexOf(directionToLookFor);
+                resPortion = name.Substring(0, at).ToUpper();
+                returnResult = (from r in exs where r.ToUpper().Contains(resPortion) && r.ToUpper().Contains(directionName) select r).FirstOrDefault();
+            }
+
+            return returnResult;
+        }
+
+        private string fnSetWorkout(List<string> exercisesKnown, List<string> exercisesUnknown , bool k)
         {
             Random r = new Random();
             //workout res = new workout();
             int counter = 0;
-            counter = r.Next(0, exercises.Count);
-            string resName = exercises[counter];
-            if (resName == "Rest")
+            string resName = "";
+            if (k)
             {
-                resName = fnSetWorkout(exercises);
+                counter = r.Next(0, exercisesKnown.Count);
+                resName = exercisesKnown[counter];
+            }
+            else
+            {
+                counter = r.Next(0, exercisesUnknown.Count);
+                 resName = exercisesUnknown[counter];
+            }
+            
+            if (resName == "Rest"  || resName.Contains("Stretch"))
+            {
+                resName = fnSetWorkout(exercisesKnown, exercisesUnknown, true);
             }
 
             return resName;
