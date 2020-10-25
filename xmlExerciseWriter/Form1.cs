@@ -210,6 +210,12 @@ namespace xmlExerciseWriter
                 exChosen = new string[1] { "Abs" };
             }
 
+            if (ckFullB.Checked)
+            {
+                chkCountEx++;
+                exChosen = new string[1] { "Full Body" };
+            }
+
 
             if (checkCount < 1)
             {
@@ -240,11 +246,74 @@ namespace xmlExerciseWriter
 
 
             List<int> breakInterval = new List<int>();
-            fnSetBreak(ref breakInterval, timetoRun );
+            if (exChosen[0] == "Full Body")
+            {
+                fnSetTimeforFullBody(ref breakInterval, timetoRun);
+            }
+            else
+            {
+                fnSetBreak(ref breakInterval, timetoRun);
+            }
 
             fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen[0]);
 
         }
+
+        private void fnSetTimeforFullBody(ref List<int> breakInterval, int timetoRun)
+        {
+            int controlledRuntime = 0;
+            int loopTime = 0;
+            if (timetoRun == 30)
+            {
+                controlledRuntime = (timetoRun * 60) - 20 ;
+                
+                while (loopTime < controlledRuntime )
+                {
+                    loopTime = loopTime + 40;
+                    breakInterval.Add(loopTime);
+                    loopTime = loopTime + 20;
+
+                }
+            }
+            else if (timetoRun == 20)
+            {
+                controlledRuntime = (timetoRun * 60) - 20;
+
+                while (loopTime < controlledRuntime)
+                {
+                    loopTime = loopTime + 40;
+                    breakInterval.Add(loopTime);
+                    loopTime = loopTime + 20;
+
+                }
+            }
+            else if (timetoRun == 15)
+            {
+                controlledRuntime = (timetoRun * 60) - 20;
+
+                while (loopTime < controlledRuntime)
+                {
+                    loopTime = loopTime + 40;
+                    breakInterval.Add(loopTime);
+                    loopTime = loopTime + 20;
+
+                }
+            }
+            else if (timetoRun == 10)
+            {
+                controlledRuntime = (timetoRun * 60) - 20;
+
+                while (loopTime < controlledRuntime)
+                {
+                    loopTime = loopTime + 40;
+                    breakInterval.Add(loopTime);
+                    loopTime = loopTime + 20;
+
+                }
+
+            }
+        }
+
         List<string> currExs = new List<string>();
         private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShare.WorkOut> wo, string exType)
         {
@@ -289,7 +358,7 @@ namespace xmlExerciseWriter
 
                 foreach(WorkOut wCheck in wOutArr )
                 {
-                    if (types.Count == 1  && types[0] ==  exType)
+                    if (types.Count == 1  && types[0] ==  exType && exType != "Full Body")
                     {
                         string wNm = wCheck.Name;
                         int wCnt = 0;
@@ -311,6 +380,32 @@ namespace xmlExerciseWriter
                         {
                             currExs.Add(wCheck.Name);
                         }
+                    }
+                    else if (exType == "Full Body"  && types.Count >= 2)
+                    {
+                        string wNm = wCheck.Name;
+                        int wCnt = 0;
+                        wCnt = (from r in rb 
+                                
+                                where r.Exercise_Name == wNm && types.Contains(r.Exercise_Type ) select r).Count();
+                        if (wNm == "Rest" || wNm == "rest" || wNm == "Complete" || wNm == "complete")
+                        {
+
+                        }
+                        else if (wNm.Contains("stretch"))
+                        {
+
+                        }
+                        else if (wCnt < 1)
+                        {
+                            wCheck.Id = 0;
+                            workOutsMain.Add(wCheck);
+                        }
+                        else if (wCnt > 1)
+                        {
+                            currExs.Add(wCheck.Name);
+                        }
+
                     }
 
                 }
@@ -347,7 +442,14 @@ namespace xmlExerciseWriter
                             breakfound = true;
                             w.Name = "Rest";
                             w.Id = totalTime - r;
-                            w.Time = 30;
+                            if (exType == "Full Body")
+                            {
+                                w.Time = 20;
+                            }
+                            else
+                            {
+                                w.Time = 30;
+                            }
                         }
                     }
 
@@ -375,11 +477,35 @@ namespace xmlExerciseWriter
                             w2.Time = 30;
                         }
                         w.Id = totalTime - r;
-                        w.Time = 30;
+                        if (exType == "Full Body")
+                        {
+                            w.Time = 40;
+                        }
+                        else
+                        {
+                            w.Time = 30;
+                        }
+                        
                     }
+                    if (exType == "Full Body")
+                    {
+                        if (breakfound)
+                        {
+                            compiledTime = compiledTime + 20;
+                        }
+                        else
+                        {
+                            compiledTime = compiledTime + 40;
+                        }
+                    }
+                    else
+                    {
+                        compiledTime = compiledTime + 30;
+                    }
+
+
                     breakfound = false;
                     
-                    compiledTime = compiledTime + 30;
 
                     if (directionFound)
                     {
@@ -419,7 +545,14 @@ namespace xmlExerciseWriter
                             breakfound = true;
                             w.Name = "Rest";
                             w.Id = totalTime - r;
-                            w.Time = 30;
+                            if (exType == "Full Body")
+                            {
+                                w.Time = 20;
+                            }
+                            else
+                            {
+                                w.Time = 30;
+                            }
                         }
                     }
 
@@ -442,14 +575,46 @@ namespace xmlExerciseWriter
                                 directionName = "Right".ToUpper();
                             }
                             w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
-                            w2.Id = (totalTime - r) - 1;
-                            w2.Time = 30;
+                            w2.Id = (totalTime - r) + 1;
+
+                            if (exType == "Full Body")
+                            {
+                                w2.Time = 40;
+                            }
+                            else
+                            {
+                                w2.Time = 30;
+                            }
                         }
                         w.Id = totalTime - r;
-                        w.Time = 30;
+                        if (exType == "Full Body")
+                        {
+                            w.Time = 40;
+                        }
+                        else
+                        {
+                            w.Time = 30;
+                        }
                     }
+
+                    if (exType == "Full Body")
+                    {
+                        if (breakfound)
+                        {
+                            compiledTime = compiledTime + 20;
+                        }
+                        else
+                        {
+                            compiledTime = compiledTime + 40;
+                        }
+                    }
+                    else
+                    {
+                        compiledTime = compiledTime + 30;
+                    }
+
                     breakfound = false;
-                    compiledTime = compiledTime + 30;
+                    
 
                     if (directionFound)
                     {
@@ -490,7 +655,14 @@ namespace xmlExerciseWriter
                             breakfound = true;
                             w.Name = "Rest";
                             w.Id = totalTime - r;
-                            w.Time = 30;
+                            if (exType == "Full Body")
+                            {
+                                w.Time = 20;
+                            }
+                            else
+                            {
+                                w.Time = 30;
+                            }
                         }
                     }
 
@@ -513,15 +685,45 @@ namespace xmlExerciseWriter
                                 directionName = "Right".ToUpper();
                             }
                             w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
-                            w2.Id = (totalTime - r) - 1;
-                            w2.Time = 30;
+                            w2.Id = (totalTime - r) + 1;
+                            if (exType == "Full Body")
+                            {
+                                w2.Time = 40;
+                            }
+                            else
+                            {
+                                w2.Time = 30;
+                            }
                         }
                         w.Id = totalTime - r;
-                        w.Time = 30;
+                        if (exType == "Full Body")
+                        {
+                            w.Time = 40;
+                        }
+                        else
+                        {
+                            w.Time = 30;
+                        }
 
                     }
+
+                    if (exType == "Full Body")
+                    {
+                        if (breakfound)
+                        {
+                            compiledTime = compiledTime + 20;
+                        }
+                        else
+                        {
+                            compiledTime = compiledTime + 40;
+                        }
+                    }
+                    else
+                    {
+                        compiledTime = compiledTime + 30;
+                    }
+
                     breakfound = false;
-                    compiledTime = compiledTime + 30;
 
                     if (directionFound)
                     {
@@ -541,7 +743,7 @@ namespace xmlExerciseWriter
                 int r = timetoRun * 2;
                 int totalTime = r;
                 bool newOld = true;
-                
+
                 while (r > 0)
                 {
                     ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
@@ -561,7 +763,15 @@ namespace xmlExerciseWriter
                             breakfound = true;
                             w.Name = "Rest";
                             w.Id = totalTime - r;
-                            w.Time = 30;
+                            if (exType == "Full Body")
+                            {
+                                w.Time = 20;
+                                //compiledTime = compiledTime + 20;
+                            }
+                            else
+                            {
+                                w.Time = 30;
+                            }
                         }
                     }
                     bool directionFound = false;
@@ -569,9 +779,9 @@ namespace xmlExerciseWriter
                     ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
                     if (breakfound == false)
                     {
-                       
+
                         w.Name = fnSetWorkout(currExs, aiEx, newOld);
-                        if(w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
+                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
                         {
                             directionFound = true;
                             if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
@@ -582,16 +792,46 @@ namespace xmlExerciseWriter
                             {
                                 directionName = "Right".ToUpper();
                             }
-                            w2.Name =  fnGetRIGHTLEFT(w.Name, directionName, currExs);
-                            w2.Id = (totalTime - r)-1;
-                            w2.Time = 30;
+                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
+                            w2.Id = (totalTime - r) - 1;
+                            if (exType == "Full Body")
+                            {
+                                w2.Time = 40;
+                            }
+                            else
+                            {
+                                w2.Time = 30;
+                            }
+
                         }
                         w.Id = totalTime - r;
-                        w.Time = 30;
+                        if (exType == "Full Body")
+                        {
+                            w.Time = 40;
+                        }
+                        else
+                        {
+                            w.Time = 30;
+                        }
                     }
+                    
+                    if (exType == "Full Body")
+                    {
+                        if (breakfound)
+                        {
+                            compiledTime = compiledTime + 20;
+                        }
+                        else
+                        {
+                            compiledTime = compiledTime + 40;
+                        }
+                    }
+                    else
+                    {
+                        compiledTime = compiledTime + 30;
+                    }
+
                     breakfound = false;
-                   
-                    compiledTime = compiledTime + 30;
                     if (directionFound)
                     {
                         wo.Add(w);
@@ -629,6 +869,11 @@ namespace xmlExerciseWriter
                 at = name.IndexOf(directionToLookFor);
                 resPortion = name.Substring(0, at).ToUpper();
                 returnResult = (from r in exs where r.ToUpper().Contains(resPortion) && r.ToUpper().Contains(directionName) select r).FirstOrDefault();
+                if (string.IsNullOrEmpty(returnResult))
+                {
+                    returnResult = resPortion + directionName;
+
+                }
             }
             else if(directionName == "LEFT")
             {
@@ -637,6 +882,12 @@ namespace xmlExerciseWriter
                 at = name.IndexOf(directionToLookFor);
                 resPortion = name.Substring(0, at).ToUpper();
                 returnResult = (from r in exs where r.ToUpper().Contains(resPortion) && r.ToUpper().Contains(directionName) select r).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(returnResult))
+                {
+                    returnResult = resPortion + directionName;
+                        
+                }
             }
 
             return returnResult;

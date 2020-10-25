@@ -48,7 +48,7 @@
             this.ChkUpper = new System.Windows.Forms.CheckBox();
             this.chkAbs = new System.Windows.Forms.CheckBox();
             this.chkLegs = new System.Windows.Forms.CheckBox();
-            this.ckkFullB = new System.Windows.Forms.CheckBox();
+            this.ckFullB = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdExercises)).BeginInit();
             this.SuspendLayout();
             // 
@@ -254,22 +254,22 @@
             this.chkLegs.Text = "Legs";
             this.chkLegs.UseVisualStyleBackColor = true;
             // 
-            // ckkFullB
+            // ckFullB
             // 
-            this.ckkFullB.AutoSize = true;
-            this.ckkFullB.Location = new System.Drawing.Point(870, 819);
-            this.ckkFullB.Name = "ckkFullB";
-            this.ckkFullB.Size = new System.Drawing.Size(178, 45);
-            this.ckkFullB.TabIndex = 19;
-            this.ckkFullB.Text = "Full Body";
-            this.ckkFullB.UseVisualStyleBackColor = true;
+            this.ckFullB.AutoSize = true;
+            this.ckFullB.Location = new System.Drawing.Point(870, 819);
+            this.ckFullB.Name = "ckFullB";
+            this.ckFullB.Size = new System.Drawing.Size(178, 45);
+            this.ckFullB.TabIndex = 19;
+            this.ckFullB.Text = "Full Body";
+            this.ckFullB.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1700, 922);
-            this.Controls.Add(this.ckkFullB);
+            this.Controls.Add(this.ckFullB);
             this.Controls.Add(this.chkLegs);
             this.Controls.Add(this.chkAbs);
             this.Controls.Add(this.ChkUpper);
@@ -321,7 +321,7 @@
         private System.Windows.Forms.CheckBox ChkUpper;
         private System.Windows.Forms.CheckBox chkAbs;
         private System.Windows.Forms.CheckBox chkLegs;
-        private System.Windows.Forms.CheckBox ckkFullB;
+        private System.Windows.Forms.CheckBox ckFullB;
     }
 }
 
