@@ -338,7 +338,7 @@ namespace xmlExerciseWriter
             // get a list of Exercises that match Chosen Exercise Type
 
             // get list of exercise routines to pick off exercises
-            string ExLoc = Properties.Resources.XMLExerciseLoc.ToString();
+            string ExLoc = Properties.Resources.XMLLibrary.ToString();
             ExLoc = ExLoc + @"\" ;
             List<WorkOut> workOutsMain = new List<WorkOut>();
 
@@ -832,7 +832,7 @@ namespace xmlExerciseWriter
                     }
 
                     breakfound = false;
-                    if (directionFound)
+                     if (directionFound)
                     {
                         wo.Add(w);
                         wo.Add(w2);

@@ -68,5 +68,14 @@ namespace xmlExerciseWriter.Properties {
                 return ResourceManager.GetString("XMLExerciseLoc", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Users\marcu\Documents\Code\ExerciseXML\WorkoutLibrary.
+        /// </summary>
+        public static string XMLLibrary {
+            get {
+                return ResourceManager.GetString("XMLLibrary", resourceCulture);
+            }
+        }
     }
 }

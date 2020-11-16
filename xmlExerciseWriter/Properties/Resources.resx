@@ -121,4 +121,7 @@
     <value>C:\Users\marcu\Documents\Code\ExerciseXML</value>
     <comment>xml exercise Loc</comment>
   </data>
+  <data name="XMLLibrary" xml:space="preserve">
+    <value>C:\Users\marcu\Documents\Code\ExerciseXML\WorkoutLibrary</value>
+  </data>
 </root>
