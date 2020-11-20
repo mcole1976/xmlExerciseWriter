@@ -35,7 +35,7 @@ namespace xmlExerciseWriter
                     err = false;
                 }
 
-                string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\" + txtRoutine.Text + ".xml";
+                string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\ReviewLoc\" + txtRoutine.Text + ".xml";
 
                 fnwriteXML(fileloc);
 
@@ -111,6 +111,9 @@ namespace xmlExerciseWriter
 
         private void fnwriteXML(string fileloc)
         {
+
+            lbErr.Text = "";
+
             string rootBgn = "<routine>";
             string rootEnd = "</routine>";
             string exBgn = "<exercise>";

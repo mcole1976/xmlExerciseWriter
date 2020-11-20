@@ -77,5 +77,14 @@ namespace xmlExerciseWriter.Properties {
                 return ResourceManager.GetString("XMLLibrary", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Users\marcu\Documents\Code\ExerciseXML\ReviewLoc.
+        /// </summary>
+        public static string XMLReview {
+            get {
+                return ResourceManager.GetString("XMLReview", resourceCulture);
+            }
+        }
     }
 }

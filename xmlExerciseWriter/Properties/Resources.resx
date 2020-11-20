@@ -124,4 +124,7 @@
   <data name="XMLLibrary" xml:space="preserve">
     <value>C:\Users\marcu\Documents\Code\ExerciseXML\WorkoutLibrary</value>
   </data>
+  <data name="XMLReview" xml:space="preserve">
+    <value>C:\Users\marcu\Documents\Code\ExerciseXML\ReviewLoc</value>
+  </data>
 </root>
