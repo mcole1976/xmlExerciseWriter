@@ -366,7 +366,7 @@ namespace xmlExerciseWriter
                         string wNm = wCheck.Name;
                         int wCnt = 0;
                         wCnt = (from r in rb where r.Exercise_Name == wNm && r.Exercise_Type == exType select r).Count();
-                        if (wNm == "Rest" || wNm == "rest" || wNm == "Complete" || wNm == "complete")
+                        if (wNm == "Rest" || wNm == "rest" || wNm == "Complete" || wNm == "complete" || wNm == "Break" ||wNm == "cobra" || wNm == "Cobra" || wNm == "cobra" || wNm == "child pose" || wNm == "Child Pose")
                         {
 
                         }
@@ -477,7 +477,7 @@ namespace xmlExerciseWriter
                             }
                             w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
                             w2.Id = (totalTime - r) - 1;
-                            w2.Time = 30;
+                            w2.Time = 40;
                         }
                         w.Id = totalTime - r;
                         if (exType == "Full Body")
@@ -579,7 +579,7 @@ namespace xmlExerciseWriter
                             }
                             w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
                             w2.Id = (totalTime - r) + 1;
-
+                            w2.Time = 40;
                             if (exType == "Full Body")
                             {
                                 w2.Time = 40;
@@ -689,6 +689,8 @@ namespace xmlExerciseWriter
                             }
                             w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
                             w2.Id = (totalTime - r) + 1;
+                            w2.Time = 40;
+
                             if (exType == "Full Body")
                             {
                                 w2.Time = 40;
@@ -797,6 +799,7 @@ namespace xmlExerciseWriter
                             }
                             w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
                             w2.Id = (totalTime - r) - 1;
+                            w2.Time = 40;
                             if (exType == "Full Body")
                             {
                                 w2.Time = 40;
