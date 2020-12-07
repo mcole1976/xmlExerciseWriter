@@ -321,8 +321,8 @@ namespace xmlExerciseWriter
         private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShare.WorkOut> wo, string exType)
         {
             //int listCount = 0;
-            int compiledTime = 0;
-            bool breakfound = false;
+            //int compiledTime = 0;
+            //bool breakfound = false;
 
             ExerciseMethodShare.ResultBase[] rbArr = ExercisePatterns.CreateResBaseList();
 
@@ -422,442 +422,204 @@ namespace xmlExerciseWriter
 
             if (timetoRun == 30)
             {
-                int r = timetoRun * 2;
-                int totalTime = r;
-                bool newOld = true;
+
                 
-                while (r > 0)
-                {
-                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
-                    if (r % 2 == 0 && r != 0)
-                    {
-                        newOld = true;
-                    }
-                    else
-                    {
-                        newOld = false;
-                    }
+                int r = timetoRun * 2;
+                fnSetExerciseDetails(r,  bi  , exType, aiEx);
 
-                    foreach (int t in bi)
-                    {
-                        if (t == compiledTime)
-                        {
-                            breakfound = true;
-                            w.Name = "Rest";
-                            w.Id = totalTime - r;
-                            if (exType == "Full Body")
-                            {
-                                w.Time = 20;
-                            }
-                            else
-                            {
-                                w.Time = 30;
-                            }
-                        }
-                    }
-
-                    bool directionFound = false;
-                    string directionName = "";
-                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
-
-
-                    if (breakfound == false)
-                    {
-                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
-                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
-                        {
-                            directionFound = true;
-                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
-                            {
-                                directionName = "Left".ToUpper();
-                            }
-                            else
-                            {
-                                directionName = "Right".ToUpper();
-                            }
-                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
-                            w2.Id = (totalTime - r) - 1;
-                            w2.Time = 40;
-                        }
-                        w.Id = totalTime - r;
-                        if (exType == "Full Body")
-                        {
-                            w.Time = 40;
-                        }
-                        else
-                        {
-                            w.Time = 30;
-                        }
-                        
-                    }
-                    if (exType == "Full Body")
-                    {
-                        if (breakfound)
-                        {
-                            compiledTime = compiledTime + 20;
-                        }
-                        else
-                        {
-                            compiledTime = compiledTime + 40;
-                        }
-                    }
-                    else
-                    {
-                        compiledTime = compiledTime + 30;
-                    }
-
-
-                    breakfound = false;
-                    
-
-                    if (directionFound)
-                    {
-                        wo.Add(w);
-                        wo.Add(w2);
-                        r = r - 2;
-                    }
-                    else
-                    {
-                        wo.Add(w);
-                        r--;
-                    }
-                }
+                
             
             }
             else if(timetoRun == 20)
             {
+
                 int r = timetoRun * 2;
-                int totalTime = r;
-                bool newOld = true;
-                
-                while (r > 0)
-                {
-                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
-                    if (r % 2 == 0 && r != 0)
-                    {
-                        newOld = true;
-                    }
-                    else
-                    {
-                        newOld = false;
-                    }
-                    foreach (int t in bi)
-                    {
-                        if (t == compiledTime)
-                        {
-                            breakfound = true;
-                            w.Name = "Rest";
-                            w.Id = totalTime - r;
-                            if (exType == "Full Body")
-                            {
-                                w.Time = 20;
-                            }
-                            else
-                            {
-                                w.Time = 30;
-                            }
-                        }
-                    }
-
-                    bool directionFound = false;
-                    string directionName = "";
-                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
-
-                    if (breakfound == false)
-                    {
-                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
-                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
-                        {
-                            directionFound = true;
-                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
-                            {
-                                directionName = "Left".ToUpper();
-                            }
-                            else
-                            {
-                                directionName = "Right".ToUpper();
-                            }
-                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
-                            w2.Id = (totalTime - r) + 1;
-                            w2.Time = 40;
-                            if (exType == "Full Body")
-                            {
-                                w2.Time = 40;
-                            }
-                            else
-                            {
-                                w2.Time = 30;
-                            }
-                        }
-                        w.Id = totalTime - r;
-                        if (exType == "Full Body")
-                        {
-                            w.Time = 40;
-                        }
-                        else
-                        {
-                            w.Time = 30;
-                        }
-                    }
-
-                    if (exType == "Full Body")
-                    {
-                        if (breakfound)
-                        {
-                            compiledTime = compiledTime + 20;
-                        }
-                        else
-                        {
-                            compiledTime = compiledTime + 40;
-                        }
-                    }
-                    else
-                    {
-                        compiledTime = compiledTime + 30;
-                    }
-
-                    breakfound = false;
-                    
-
-                    if (directionFound)
-                    {
-                        wo.Add(w);
-                        wo.Add(w2);
-                        r = r - 2;
-                    }
-                    else
-                    {
-                        wo.Add(w);
-                        r--;
-                    }
-                }
-
+                fnSetExerciseDetails(r,  bi, exType, aiEx);
+               
             }
             else if (timetoRun == 15)
             {
                 int r = timetoRun * 2;
-                int totalTime = r;
-                bool newOld = true;
-                
-                while (r > 0)
-                {
-                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
-                    if (r % 2 == 0 && r != 0)
-                    {
-                        newOld = true;
-                    }
-                    else
-                    {
-                        newOld = false;
-                    }
-                    foreach (int t in bi)
-                    {
-                        if (t == compiledTime)
-                        {
-
-                            breakfound = true;
-                            w.Name = "Rest";
-                            w.Id = totalTime - r;
-                            if (exType == "Full Body")
-                            {
-                                w.Time = 20;
-                            }
-                            else
-                            {
-                                w.Time = 30;
-                            }
-                        }
-                    }
-
-                    bool directionFound = false;
-                    string directionName = "";
-                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
-
-                    if (breakfound == false)
-                    {
-                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
-                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
-                        {
-                            directionFound = true;
-                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
-                            {
-                                directionName = "Left".ToUpper();
-                            }
-                            else
-                            {
-                                directionName = "Right".ToUpper();
-                            }
-                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
-                            w2.Id = (totalTime - r) + 1;
-                            w2.Time = 40;
-
-                            if (exType == "Full Body")
-                            {
-                                w2.Time = 40;
-                            }
-                            else
-                            {
-                                w2.Time = 30;
-                            }
-                        }
-                        w.Id = totalTime - r;
-                        if (exType == "Full Body")
-                        {
-                            w.Time = 40;
-                        }
-                        else
-                        {
-                            w.Time = 30;
-                        }
-
-                    }
-
-                    if (exType == "Full Body")
-                    {
-                        if (breakfound)
-                        {
-                            compiledTime = compiledTime + 20;
-                        }
-                        else
-                        {
-                            compiledTime = compiledTime + 40;
-                        }
-                    }
-                    else
-                    {
-                        compiledTime = compiledTime + 30;
-                    }
-
-                    breakfound = false;
-
-                    if (directionFound)
-                    {
-                        wo.Add(w);
-                        wo.Add(w2);
-                        r = r - 2;
-                    }
-                    else
-                    {
-                        wo.Add(w);
-                        r--;
-                    }
-                }
+                fnSetExerciseDetails(r,  bi, exType, aiEx);
             }
             else if (timetoRun == 10)
             {
                 int r = timetoRun * 2;
-                int totalTime = r;
-                bool newOld = true;
-
-                while (r > 0)
-                {
-                    ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
-                    if (r % 2 == 0 && r != 0)
-                    {
-                        newOld = true;
-                    }
-                    else
-                    {
-                        newOld = false;
-                    }
-
-                    foreach (int t in bi)
-                    {
-                        if (t == compiledTime)
-                        {
-                            breakfound = true;
-                            w.Name = "Rest";
-                            w.Id = totalTime - r;
-                            if (exType == "Full Body")
-                            {
-                                w.Time = 20;
-                                //compiledTime = compiledTime + 20;
-                            }
-                            else
-                            {
-                                w.Time = 30;
-                            }
-                        }
-                    }
-                    bool directionFound = false;
-                    string directionName = "";
-                    ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
-                    if (breakfound == false)
-                    {
-
-                        w.Name = fnSetWorkout(currExs, aiEx, newOld);
-                        if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
-                        {
-                            directionFound = true;
-                            if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
-                            {
-                                directionName = "Left".ToUpper();
-                            }
-                            else
-                            {
-                                directionName = "Right".ToUpper();
-                            }
-                            w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
-                            w2.Id = (totalTime - r) - 1;
-                            w2.Time = 40;
-                            if (exType == "Full Body")
-                            {
-                                w2.Time = 40;
-                            }
-                            else
-                            {
-                                w2.Time = 30;
-                            }
-
-                        }
-                        w.Id = totalTime - r;
-                        if (exType == "Full Body")
-                        {
-                            w.Time = 40;
-                        }
-                        else
-                        {
-                            w.Time = 30;
-                        }
-                    }
-                    
-                    if (exType == "Full Body")
-                    {
-                        if (breakfound)
-                        {
-                            compiledTime = compiledTime + 20;
-                        }
-                        else
-                        {
-                            compiledTime = compiledTime + 40;
-                        }
-                    }
-                    else
-                    {
-                        compiledTime = compiledTime + 30;
-                    }
-
-                    breakfound = false;
-                     if (directionFound)
-                    {
-                        wo.Add(w);
-                        wo.Add(w2);
-                        r = r-2;
-                    }
-                    else
-                    {
-                        wo.Add(w);
-                        r--;
-                    }
-                    
-                }
-
+                fnSetExerciseDetails(r,  bi, exType, aiEx);
             }
 
             string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\" + txtRndRoutine.Text + ".xml";
             int f = wo.Count;
             fnwriteXML(fileloc);
 
+        }
+
+        private void fnSetExerciseDetails(int r ,  List<int> bi, string exRcs , List<string> ax)
+        {
+            int totalTime = r;
+            bool newOld = true;
+            bool breakfound = false;
+            int c = 0;
+
+            while (r > 0)
+            {
+                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                if (r % 2 == 0 && r != 0)
+                {
+                    newOld = true;
+                }
+                else
+                {
+                    newOld = false;
+                }
+
+                foreach (int t in bi)
+                {
+                    if (t == c)
+                    {
+                        breakfound = true;
+                        w.Name = "Rest";
+                        w.Id = totalTime - r;
+                        if (exRcs == "Full Body")
+                        {
+                            w.Time = 20;
+                        }
+                        else
+                        {
+                            w.Time = 30;
+                        }
+                    }
+                }
+
+                bool directionFound = false;
+                string directionName = "";
+                ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
+
+
+                if (breakfound == false)
+                {
+                    w.Name = fnSetWorkout(currExs, ax, newOld);
+                    if (w.Name.Contains(" Right") || w.Name.Contains("Left") || w.Name.Contains(" right") || w.Name.Contains("left"))
+                    {
+                        directionFound = true;
+                        if (w.Name.Contains(" Right") || w.Name.Contains(" right"))
+                        {
+                            directionName = "Left".ToUpper();
+                        }
+                        else
+                        {
+                            directionName = "Right".ToUpper();
+                        }
+                        w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
+                        w2.Id = (totalTime - r) ;
+                        
+                    }
+                    w.Id = totalTime - r;
+                    if (exRcs == "Full Body")
+                    {
+                        w.Time = 40;
+                        w2.Time = 40;
+                    }
+                    else
+                    {
+                        w.Time = 30;
+                        w2.Time = 30;
+                    }
+
+                }
+
+                if (exRcs == "Full Body")
+                {
+                    if (breakfound)
+                    {
+                        c = c + 20;
+                    }
+                    else
+                    {
+                        c = c + 40;
+                    }
+                }
+                else
+                {
+                    if (!directionFound)
+                    {
+                        c = c + 30;
+                    }
+                }
+
+
+                breakfound = false;
+
+
+                if (directionFound)
+                {
+                    wo.Add(w);
+                    WorkOut w3 = new WorkOut();
+                    w3.Name = "Rest";
+                    w3.Id = (totalTime - r) + 1;
+                    w2.Id = w3.Id + 1;
+                    if (exRcs == "Full Body")
+                    {
+                        w3.Time = 20;
+                        wo.Add(w3);
+                        wo.Add(w2);
+                        r = r - 3;
+                        c = c + (w3.Time + w2.Time);
+                    }
+                    else
+                    {
+                        w2.Id = (totalTime - r )+ 1;
+                        wo.Add(w2);
+                        r = r - 2;
+                        c = c + w2.Time;
+                    }
+                }
+                else
+                {
+                    r--;
+                    if (r == 0 && (w.Name == "Rest" || w.Name == "break"))
+                    {
+                        WorkOut ext = new WorkOut();
+                        ext.Name = fnSetWorkout(currExs, ax, newOld);
+                        ext.Id = w.Id + 1;
+                        bool rl = false;
+                        while (rl == false)
+                        {
+                            if (ext.Name.Contains("right") || ext.Name.Contains("left")|| ext.Name.Contains("Right") || ext.Name.Contains("Left"))
+                            {
+                                rl = false;
+                                w.Name = fnSetWorkout(currExs, ax, newOld);
+                                if (exRcs == "Full Body")
+                                {
+                                    ext.Time = 40;
+                                }
+                                else 
+                                {
+                                    ext.Time = 30;
+                                }
+                            }
+                            else
+                            {
+                                rl = true;
+                                if (exRcs == "Full Body")
+                                {
+                                    ext.Time = 40;
+                                }
+                                else
+                                {
+                                    ext.Time = 30;
+                                }
+                            }
+                        }
+                        wo.Add(w);
+                        wo.Add(ext);
+                    }
+                    else
+                    {
+                        wo.Add(w);
+                    }
+                }
+            }
         }
 
         private string fnGetRIGHTLEFT(string name, string directionName, List <string> exs)
