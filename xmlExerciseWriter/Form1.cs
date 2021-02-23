@@ -219,6 +219,12 @@ namespace xmlExerciseWriter
                 exChosen = new string[1] { "Full Body" };
             }
 
+            if (chKNoBreak.Checked)
+            {
+                chkCountEx++;
+                exChosen = new string[1] { "Full Body" };
+            }
+
 
             if (checkCount < 1)
             {
@@ -251,11 +257,18 @@ namespace xmlExerciseWriter
             List<int> breakInterval = new List<int>();
             if (exChosen[0] == "Full Body")
             {
-                fnSetTimeforFullBody(ref breakInterval, timetoRun);
+                if (!chKNoBreak.Checked)
+                {
+                    fnSetTimeforFullBody(ref breakInterval, timetoRun);
+                }
+                
+                
             }
             else
             {
-                fnSetBreak(ref breakInterval, timetoRun);
+               
+                    fnSetBreak(ref breakInterval, timetoRun);
+                
             }
 
             fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen[0]);
@@ -317,9 +330,10 @@ namespace xmlExerciseWriter
             }
         }
 
-        List<string> currExs = new List<string>();
+        
         private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShare.WorkOut> wo, string exType)
         {
+            List<string> currExs = new List<string>();
             //int listCount = 0;
             //int compiledTime = 0;
             //bool breakfound = false;
@@ -370,7 +384,7 @@ namespace xmlExerciseWriter
                         {
 
                         }
-                        else if (wNm.Contains("stretch"))
+                        else if (wNm.Contains("stretch") || wNm.Contains("Child Pose"))
                         {
 
                         }
@@ -395,7 +409,7 @@ namespace xmlExerciseWriter
                         {
 
                         }
-                        else if (wNm.Contains("stretch"))
+                        else if (wNm.Contains("stretch") || wNm.Contains("Child Pose"))
                         {
 
                         }
@@ -420,42 +434,70 @@ namespace xmlExerciseWriter
             
             currExs = currExs.Distinct().ToList();
 
+
+
             if (timetoRun == 30)
             {
-
-                
-                int r = timetoRun * 2;
-                fnSetExerciseDetails(r,  bi  , exType, aiEx);
-
-                
-            
+                if (chKNoBreak.Checked)
+                {
+                    int r = (timetoRun  *  60) / 45;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
+                else
+                {
+                    int r = timetoRun * 2;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
             }
             else if(timetoRun == 20)
             {
-
-                int r = timetoRun * 2;
-                fnSetExerciseDetails(r,  bi, exType, aiEx);
-               
+                if (chKNoBreak.Checked)
+                {
+                    int r = (timetoRun * 60) / 40;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
+                else
+                {
+                    int r = timetoRun * 2;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
             }
             else if (timetoRun == 15)
             {
-                int r = timetoRun * 2;
-                fnSetExerciseDetails(r,  bi, exType, aiEx);
+                if (chKNoBreak.Checked)
+                {
+                    int r = (timetoRun * 60) / 45;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
+                else
+                {
+                    int r = timetoRun * 2;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
             }
             else if (timetoRun == 10)
             {
-                int r = timetoRun * 2;
-                fnSetExerciseDetails(r,  bi, exType, aiEx);
+                if (chKNoBreak.Checked)
+                {
+                    int r = (timetoRun * 60) / 40;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
+                else
+                {
+                    int r = timetoRun * 2;
+                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                }
             }
 
             string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\" + txtRndRoutine.Text + ".xml";
             int f = wo.Count;
             fnwriteXML(fileloc);
-
+            int g = wo.Count;
         }
 
-        private void fnSetExerciseDetails(int r ,  List<int> bi, string exRcs , List<string> ax)
+        private void fnSetExerciseDetails(int r ,  List<int> bi, string exRcs , List<string> ax , List<string> curr)
         {
+            List<string> currExs = curr;
             int totalTime = r;
             bool newOld = true;
             bool breakfound = false;
@@ -517,8 +559,16 @@ namespace xmlExerciseWriter
                     w.Id = totalTime - r;
                     if (exRcs == "Full Body")
                     {
-                        w.Time = 40;
-                        w2.Time = 40;
+                        if (chk15.Checked || Chk30.Checked)
+                        {
+                            w.Time = 45;
+                            w2.Time = 45;
+                        }
+                        else
+                        {
+                            w.Time = 40;
+                            w2.Time = 40;
+                        }
                     }
                     else
                     {
@@ -536,7 +586,14 @@ namespace xmlExerciseWriter
                     }
                     else
                     {
-                        c = c + 40;
+                        if (chk15.Checked || Chk30.Checked)
+                        {
+                            c = c + 45;
+                        }
+                        else
+                        {
+                            c = c + 40;
+                        }
                     }
                 }
                 else
@@ -545,6 +602,7 @@ namespace xmlExerciseWriter
                     {
                         c = c + 30;
                     }
+                    
                 }
 
 
@@ -554,24 +612,65 @@ namespace xmlExerciseWriter
                 if (directionFound)
                 {
                     wo.Add(w);
-                    WorkOut w3 = new WorkOut();
-                    w3.Name = "Rest";
-                    w3.Id = (totalTime - r) + 1;
-                    w2.Id = w3.Id + 1;
                     if (exRcs == "Full Body")
                     {
-                        w3.Time = 20;
-                        wo.Add(w3);
-                        wo.Add(w2);
-                        r = r - 3;
-                        c = c + (w3.Time + w2.Time);
+                        WorkOut w3 = new WorkOut();
+                        if(chKNoBreak.Checked)
+                        {
+                            w2.Id = (totalTime - r) + 1;
+                            r = r - 2;
+                            c = c + ( w2.Time);
+                            wo.Add(w2);
+
+                        }
+                        else
+                        {
+                            w3.Name = "Rest";
+                            w3.Id = (totalTime - r) + 1;
+                            w2.Id = w3.Id + 1;
+                            w3.Time = 20;
+                            wo.Add(w3);
+                            r = r - 3;
+                            c = c + (w3.Time + w2.Time);
+                            wo.Add(w2);
+
+                            c = c + (w3.Time + w2.Time);
+                        } 
                     }
                     else
                     {
                         w2.Id = (totalTime - r )+ 1;
-                        wo.Add(w2);
+                        
                         r = r - 2;
+                        c = c + (w.Time );
+
+                        foreach (int t in bi)
+                        {
+                            if(c == t)
+                            {
+                                r = r - 3;
+                                WorkOut wRest = new WorkOut();
+                                wRest.Name = "Rest";
+                                wRest.Id = w2.Id ;
+                                w2.Id = w2.Id + 1;
+                                if (exRcs == "Full Body")
+                                {
+                                    wRest.Time = 20;
+                                    c = c + 20;
+                                }
+                                else
+                                {
+                                    wRest.Time = 30;
+                                    c = c + 30;
+                                }
+                                wo.Add(wRest);
+
+                            }
+                        }
+
                         c = c + w2.Time;
+
+                        wo.Add(w2);
                     }
                 }
                 else
@@ -678,7 +777,7 @@ namespace xmlExerciseWriter
                  resName = exercisesUnknown[counter];
             }
             
-            if (resName == "Rest"  || resName.Contains("Stretch"))
+            if (resName == "Rest"  || resName.Contains("Stretch")|| resName ==" Child Pose")
             {
                 resName = fnSetWorkout(exercisesKnown, exercisesUnknown, true);
             }

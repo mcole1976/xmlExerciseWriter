@@ -49,6 +49,7 @@
             this.chkAbs = new System.Windows.Forms.CheckBox();
             this.chkLegs = new System.Windows.Forms.CheckBox();
             this.ckFullB = new System.Windows.Forms.CheckBox();
+            this.chKNoBreak = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdExercises)).BeginInit();
             this.SuspendLayout();
             // 
@@ -227,7 +228,7 @@
             // ChkUpper
             // 
             this.ChkUpper.AutoSize = true;
-            this.ChkUpper.Location = new System.Drawing.Point(870, 564);
+            this.ChkUpper.Location = new System.Drawing.Point(870, 565);
             this.ChkUpper.Name = "ChkUpper";
             this.ChkUpper.Size = new System.Drawing.Size(215, 45);
             this.ChkUpper.TabIndex = 17;
@@ -247,7 +248,7 @@
             // chkLegs
             // 
             this.chkLegs.AutoSize = true;
-            this.chkLegs.Location = new System.Drawing.Point(870, 746);
+            this.chkLegs.Location = new System.Drawing.Point(870, 735);
             this.chkLegs.Name = "chkLegs";
             this.chkLegs.Size = new System.Drawing.Size(117, 45);
             this.chkLegs.TabIndex = 19;
@@ -257,18 +258,29 @@
             // ckFullB
             // 
             this.ckFullB.AutoSize = true;
-            this.ckFullB.Location = new System.Drawing.Point(870, 819);
+            this.ckFullB.Location = new System.Drawing.Point(870, 815);
             this.ckFullB.Name = "ckFullB";
             this.ckFullB.Size = new System.Drawing.Size(178, 45);
             this.ckFullB.TabIndex = 19;
             this.ckFullB.Text = "Full Body";
             this.ckFullB.UseVisualStyleBackColor = true;
             // 
+            // chKNoBreak
+            // 
+            this.chKNoBreak.AutoSize = true;
+            this.chKNoBreak.Location = new System.Drawing.Point(870, 900);
+            this.chKNoBreak.Name = "chKNoBreak";
+            this.chKNoBreak.Size = new System.Drawing.Size(177, 45);
+            this.chKNoBreak.TabIndex = 20;
+            this.chKNoBreak.Text = "No Break";
+            this.chKNoBreak.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1700, 922);
+            this.ClientSize = new System.Drawing.Size(1700, 1415);
+            this.Controls.Add(this.chKNoBreak);
             this.Controls.Add(this.ckFullB);
             this.Controls.Add(this.chkLegs);
             this.Controls.Add(this.chkAbs);
@@ -322,6 +334,7 @@
         private System.Windows.Forms.CheckBox chkAbs;
         private System.Windows.Forms.CheckBox chkLegs;
         private System.Windows.Forms.CheckBox ckFullB;
+        private System.Windows.Forms.CheckBox chKNoBreak;
     }
 }
 
