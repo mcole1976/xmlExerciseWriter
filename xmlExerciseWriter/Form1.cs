@@ -161,7 +161,7 @@ namespace xmlExerciseWriter
             int timetoRun = 0;
             string[] exChosen = new string[1];
             
-
+            //Validation Code for entered Text time and exercise type
             if(String.IsNullOrEmpty(txtRndRoutine.Text))
             {
                 lbErr.Text = lbErr.Text = "Please Enter Your Routines Name";
@@ -253,6 +253,7 @@ namespace xmlExerciseWriter
 
             List<string> exercises = ExercisePatterns.exerciseStringList();
 
+            //no break and Full Body are the same exercise patterns but have different break structures
 
             List<int> breakInterval = new List<int>();
             if (exChosen[0] == "Full Body")
@@ -270,7 +271,7 @@ namespace xmlExerciseWriter
                     fnSetBreak(ref breakInterval, timetoRun);
                 
             }
-
+            // creatine the exercise routine 
             fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen[0]);
 
         }
@@ -340,6 +341,7 @@ namespace xmlExerciseWriter
 
             ExerciseMethodShare.ResultBase[] rbArr = ExercisePatterns.CreateResBaseList();
 
+            // choose all available exercise
             List<ExerciseMethodShare.ResultBase> rb = rbArr.ToList();
 
             //rb = (from r in rb where r.Exercise_Type == exType select r).ToList();
@@ -359,6 +361,7 @@ namespace xmlExerciseWriter
             ExLoc = ExLoc + @"\" ;
             List<WorkOut> workOutsMain = new List<WorkOut>();
 
+            // loop over each exercise routine 
             foreach(string s in exNames)
             {
                 List<WorkOut> wOUT = new List<WorkOut>();
@@ -372,7 +375,7 @@ namespace xmlExerciseWriter
                 types = (from m in rb where m.Searched_exercise == s select m.Exercise_Type).Distinct().ToList(); 
 
                 
-
+                // breakdown each routine
                 foreach(WorkOut wCheck in wOutArr )
                 {
                     if (types.Count == 1  && types[0] ==  exType && exType != "Full Body")
@@ -435,7 +438,7 @@ namespace xmlExerciseWriter
             currExs = currExs.Distinct().ToList();
 
 
-
+            // set exercises according to time
             if (timetoRun == 30)
             {
                 if (chKNoBreak.Checked)
@@ -494,7 +497,7 @@ namespace xmlExerciseWriter
             fnwriteXML(fileloc);
             int g = wo.Count;
         }
-
+        // set the exercise out to each break and execise at a point in time
         private void fnSetExerciseDetails(int r ,  List<int> bi, string exRcs , List<string> ax , List<string> curr)
         {
             List<string> currExs = curr;
@@ -502,17 +505,29 @@ namespace xmlExerciseWriter
             bool newOld = true;
             bool breakfound = false;
             int c = 0;
-
+            if (exRcs == "Full Body" || exRcs =="No Break")
+            {
+                currExs.AddRange(ax);
+                currExs.Distinct().ToList();
+            }
             while (r > 0)
             {
                 ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
-                if (r % 2 == 0 && r != 0)
+
+                if (exRcs == "Full Body" || exRcs == "No Break" )
                 {
-                    newOld = true;
+                    newOld = false;
                 }
                 else
                 {
-                    newOld = false;
+                    if (r % 2 == 0 && r != 0)
+                    {
+                        newOld = true;
+                    }
+                    else
+                    {
+                        newOld = false;
+                    }
                 }
 
                 foreach (int t in bi)
@@ -559,7 +574,7 @@ namespace xmlExerciseWriter
                     w.Id = totalTime - r;
                     if (exRcs == "Full Body")
                     {
-                        if (chk15.Checked || Chk30.Checked)
+                        if ((chk15.Checked || Chk30.Checked) && chKNoBreak.Checked)
                         {
                             w.Time = 45;
                             w2.Time = 45;
@@ -586,7 +601,7 @@ namespace xmlExerciseWriter
                     }
                     else
                     {
-                        if (chk15.Checked || Chk30.Checked)
+                        if ((chk15.Checked || Chk30.Checked) && chKNoBreak.Checked)
                         {
                             c = c + 45;
                         }
@@ -634,7 +649,7 @@ namespace xmlExerciseWriter
                             c = c + (w3.Time + w2.Time);
                             wo.Add(w2);
 
-                            c = c + (w3.Time + w2.Time);
+                            //c = c + (w3.Time + w2.Time);
                         } 
                     }
                     else
@@ -648,7 +663,7 @@ namespace xmlExerciseWriter
                         {
                             if(c == t)
                             {
-                                r = r - 3;
+                                r = r - 1;
                                 WorkOut wRest = new WorkOut();
                                 wRest.Name = "Rest";
                                 wRest.Id = w2.Id ;
