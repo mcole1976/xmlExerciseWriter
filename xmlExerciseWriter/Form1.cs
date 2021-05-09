@@ -567,7 +567,12 @@ namespace xmlExerciseWriter
                         {
                             directionName = "Right".ToUpper();
                         }
-                        w2.Name = fnGetRIGHTLEFT(w.Name, directionName, currExs);
+                        List<string> exB = ax;
+                        if (newOld)
+                        {
+                            exB = currExs;
+                        }
+                        w2.Name = fnGetRIGHTLEFT(w.Name, directionName, exB);
                         w2.Id = (totalTime - r) ;
                         
                     }
