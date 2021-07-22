@@ -2,14 +2,22 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Oxygen-Icons.org-Oxygen-Actions-document-edit.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="ExerciseMethodShare">
-      <HintPath>..\..\..\ExerciseMethodShare\ExerciseMethodShare\bin\Release\netcoreapp3.1\ExerciseMethodShare.dll</HintPath>
+    <PackageReference Include="MongoDB.Driver" Version="2.12.4" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.12.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CreateExercises">
+      <HintPath>..\..\..\CreateExercises\CreateExercises\bin\Release\CreateExercises.dll</HintPath>
+    </Reference>
+    <Reference Include="ExerciseMethodShareDtNt">
+      <HintPath>..\..\..\ExerciseMethodShareDtNt\ExerciseMethodShareDtNt\bin\Release\netstandard2.0\ExerciseMethodShareDtNt.dll</HintPath>
     </Reference>
   </ItemGroup>
 

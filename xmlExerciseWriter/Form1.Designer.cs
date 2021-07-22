@@ -51,6 +51,10 @@
             this.chkLegs = new System.Windows.Forms.CheckBox();
             this.ckFullB = new System.Windows.Forms.CheckBox();
             this.chKNoBreak = new System.Windows.Forms.CheckBox();
+            this.chkFBME = new System.Windows.Forms.CheckBox();
+            this.chkLegsME = new System.Windows.Forms.CheckBox();
+            this.chkABME = new System.Windows.Forms.CheckBox();
+            this.chkUBME = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdExercises)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,7 +138,7 @@
             // lbErr
             // 
             this.lbErr.AutoSize = true;
-            this.lbErr.Location = new System.Drawing.Point(716, 80);
+            this.lbErr.Location = new System.Drawing.Point(300, 900);
             this.lbErr.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbErr.MinimumSize = new System.Drawing.Size(425, 164);
             this.lbErr.Name = "lbErr";
@@ -276,11 +280,55 @@
             this.chKNoBreak.Text = "No Break";
             this.chKNoBreak.UseVisualStyleBackColor = true;
             // 
+            // chkFBME
+            // 
+            this.chkFBME.AutoSize = true;
+            this.chkFBME.Location = new System.Drawing.Point(740, 332);
+            this.chkFBME.Name = "chkFBME";
+            this.chkFBME.Size = new System.Drawing.Size(178, 45);
+            this.chkFBME.TabIndex = 23;
+            this.chkFBME.Text = "Full Body";
+            this.chkFBME.UseVisualStyleBackColor = true;
+            // 
+            // chkLegsME
+            // 
+            this.chkLegsME.AutoSize = true;
+            this.chkLegsME.Location = new System.Drawing.Point(740, 252);
+            this.chkLegsME.Name = "chkLegsME";
+            this.chkLegsME.Size = new System.Drawing.Size(117, 45);
+            this.chkLegsME.TabIndex = 24;
+            this.chkLegsME.Text = "Legs";
+            this.chkLegsME.UseVisualStyleBackColor = true;
+            // 
+            // chkABME
+            // 
+            this.chkABME.AutoSize = true;
+            this.chkABME.Location = new System.Drawing.Point(740, 167);
+            this.chkABME.Name = "chkABME";
+            this.chkABME.Size = new System.Drawing.Size(106, 45);
+            this.chkABME.TabIndex = 22;
+            this.chkABME.Text = "Abs";
+            this.chkABME.UseVisualStyleBackColor = true;
+            // 
+            // chkUBME
+            // 
+            this.chkUBME.AutoSize = true;
+            this.chkUBME.Location = new System.Drawing.Point(740, 82);
+            this.chkUBME.Name = "chkUBME";
+            this.chkUBME.Size = new System.Drawing.Size(215, 45);
+            this.chkUBME.TabIndex = 21;
+            this.chkUBME.Text = "Upper Body";
+            this.chkUBME.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1700, 1415);
+            this.Controls.Add(this.chkFBME);
+            this.Controls.Add(this.chkLegsME);
+            this.Controls.Add(this.chkABME);
+            this.Controls.Add(this.chkUBME);
             this.Controls.Add(this.chKNoBreak);
             this.Controls.Add(this.ckFullB);
             this.Controls.Add(this.chkLegs);
@@ -337,6 +385,10 @@
         private System.Windows.Forms.CheckBox chkLegs;
         private System.Windows.Forms.CheckBox ckFullB;
         private System.Windows.Forms.CheckBox chKNoBreak;
+        private System.Windows.Forms.CheckBox chkFBME;
+        private System.Windows.Forms.CheckBox chkLegsME;
+        private System.Windows.Forms.CheckBox chkABME;
+        private System.Windows.Forms.CheckBox chkUBME;
     }
 }
 

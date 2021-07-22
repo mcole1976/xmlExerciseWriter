@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
-using ExerciseMethodShare;
+using CreateExercises;
+using ExerciseMethodShareDtNt;
+
 
 namespace xmlExerciseWriter
 {
     public partial class Form1 : Form
     {
-        List<ExerciseMethodShare.WorkOut> wo = new List<ExerciseMethodShare.WorkOut>();
+        List<ExerciseMethodShareDtNt.WorkOut> wo = new List<ExerciseMethodShareDtNt.WorkOut>();
         int counter = 0;
         string xml = "";
         public Form1()
@@ -29,15 +31,50 @@ namespace xmlExerciseWriter
             bool err = true;
             if (chkComp.Checked)
             {
-                if (String.IsNullOrEmpty(txtExercise.Text))
+                Dictionary<int, string> type = CreateExercises.ExerciseDataFeed.Exercise_Types_List();
+                int EXType_ID = 0;
+                string Exname = "";
+                if (String.IsNullOrEmpty(txtRoutine.Text))
                 {
                     lbErr.Text = lbErr.Text + "You have not entered an exercise Name";
                     err = false;
+                    return;
+                }
+                Exname = txtRoutine.Text;
+
+
+                if (chkABME.Checked)
+                {
+                    EXType_ID = (from t in type where t.Value == chkABME.Text select t.Key).FirstOrDefault();
+                }
+                else if(chkFBME.Checked)
+                {
+                    EXType_ID = (from t in type where t.Value == chkFBME.Text select t.Key).FirstOrDefault();
+
+                }
+                else if (chkLegsME.Checked)
+                {
+                    EXType_ID = (from t in type where t.Value == chkLegsME.Text select t.Key).FirstOrDefault();
+
+                }
+                else if (chkUBME.Checked)
+                {
+                    EXType_ID = (from t in type where t.Value == chkUBME.Text select t.Key).FirstOrDefault();
+
                 }
 
-                string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\ReviewLoc\" + txtRoutine.Text + ".xml";
+                //string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\ReviewLoc\" + txtRoutine.Text + ".xml";
 
-                fnwriteXML(fileloc);
+                if (EXType_ID == 0)
+                {
+                    lbErr.Text = lbErr.Text + "You have not Chosen an exercise Type";
+                    err = false;
+                    return;
+                }
+                
+
+
+                fnwriteXML(EXType_ID, Exname);
 
 
             }
@@ -83,7 +120,7 @@ namespace xmlExerciseWriter
                 {
                     if (time > 0 && time < 121)
                     {
-                        ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                        ExerciseMethodShareDtNt.WorkOut w = new ExerciseMethodShareDtNt.WorkOut();
                         w.Name = txtExercise.Text;
                         w.Id = counter++;
                         w.Time = time;
@@ -95,7 +132,7 @@ namespace xmlExerciseWriter
                         grdExercises.Rows.Clear();
                         //grdExercises.Columns.Clear();
                         
-                        foreach (ExerciseMethodShare.WorkOut wk in wo)
+                        foreach (ExerciseMethodShareDtNt.WorkOut wk in wo)
                         {
                             grdExercises.Rows.Add(wk.Name, wk.Time);
                         }
@@ -109,48 +146,24 @@ namespace xmlExerciseWriter
             }
         }
 
-        private void fnwriteXML(string fileloc)
+        private void fnwriteXML(int ExType_ID, string name)
         {
 
             lbErr.Text = "";
 
-            string rootBgn = "<routine>";
-            string rootEnd = "</routine>";
-            string exBgn = "<exercise>";
-            string exEnd = "</exercise>";
-            string orderBgn = "<order>";
-            string orderEnd = "</order>";
-            string nameBgn = "<name>";
-            string nameEnd = "</name>";
-            string timeBgn = "<time>";
-            string timeEnd = "</time>";
+            CreateExercises.ExerciseDataFeed.Make_Exercise_Regiment(ExType_ID, name);
 
-            using (StreamWriter sw = File.CreateText(fileloc))
+
+            foreach (ExerciseMethodShareDtNt.WorkOut w in wo)
             {
-                sw.WriteLine(rootBgn);
-
-            }
-
-            foreach (ExerciseMethodShare.WorkOut w in wo)
-            {
-                using (StreamWriter sw = File.AppendText(fileloc))
-                {
-                    sw.WriteLine(exBgn);
-                    sw.WriteLine(orderBgn + w.Id.ToString() + orderEnd);
-                    sw.WriteLine(nameBgn + w.Name + nameEnd);
-                    sw.WriteLine(timeBgn + w.Time.ToString() + timeEnd);
-                    sw.WriteLine(exEnd);
-                }
+                CreateExercises.ExerciseDataFeed.Make_Regiment_Record(0, w);
+                CreateExercises.ExerciseDataFeed.Make_Result_Base(w, ExType_ID, name);
             }
             wo.Clear();
             counter = 0;
-            lbErr.Text = txtRoutine.Text + " Completed and Made";
+            lbErr.Text = txtRoutine.Text + " Completed and Made " + name;
             txtRoutine.Text = "";
-            using (StreamWriter sw = File.AppendText(fileloc))
-            {
-                sw.WriteLine(rootEnd);
-
-            }
+            
         }
 
         private void btnRnd_Click(object sender, EventArgs e)
@@ -159,7 +172,9 @@ namespace xmlExerciseWriter
             int checkCount = 0;
             int chkCountEx = 0;
             int timetoRun = 0;
-            string[] exChosen = new string[1];
+            KeyValuePair<int, string> exChosen = new KeyValuePair<int, string>();
+
+            Dictionary<int, string> typeEx = CreateExercises.ExerciseDataFeed.Exercise_Types_List();
             
             //Validation Code for entered Text time and exercise type
             if(String.IsNullOrEmpty(txtRndRoutine.Text))
@@ -198,31 +213,31 @@ namespace xmlExerciseWriter
             if (chkLegs.Checked == true)
             {
                 chkCountEx++;
-                exChosen = new string[1]{  "Legs"};
+                exChosen = (from et in typeEx where chkLegs.Text == et.Value select et).FirstOrDefault();
             }
 
             if (ChkUpper.Checked == true)
             {
                 chkCountEx++;
-                exChosen = new string[1]  { "Upper Body"};
+                 exChosen = (from et in typeEx where ChkUpper.Text == et.Value select et).FirstOrDefault();
             }
 
             if (chkAbs.Checked == true)
             {
                 chkCountEx++;
-                exChosen = new string[1] { "Abs" };
+                exChosen = (from et in typeEx where chkAbs.Text == et.Value select et).FirstOrDefault();
             }
 
             if (ckFullB.Checked)
             {
                 chkCountEx++;
-                exChosen = new string[1] { "Full Body" };
+                exChosen = (from et in typeEx where ckFullB.Text == et.Value select et).FirstOrDefault();
             }
 
             if (chKNoBreak.Checked)
             {
                 chkCountEx++;
-                exChosen = new string[1] { "Full Body" };
+                exChosen = (from et in typeEx where  et.Value == "Full Body" select et).FirstOrDefault();
             }
 
 
@@ -256,7 +271,7 @@ namespace xmlExerciseWriter
             //no break and Full Body are the same exercise patterns but have different break structures
 
             List<int> breakInterval = new List<int>();
-            if (exChosen[0] == "Full Body")
+            if (exChosen.Value == "Full Body")
             {
                 if (!chKNoBreak.Checked)
                 {
@@ -272,7 +287,7 @@ namespace xmlExerciseWriter
                 
             }
             // creatine the exercise routine 
-            fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen[0]);
+            fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen);
 
         }
 
@@ -332,57 +347,60 @@ namespace xmlExerciseWriter
         }
 
         
-        private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShare.WorkOut> wo, string exType)
+        private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShareDtNt.WorkOut> wo, KeyValuePair<int,string> exType)
         {
             List<string> currExs = new List<string>();
+            List<string> aiEx = new List<string>();
             //int listCount = 0;
             //int compiledTime = 0;
             //bool breakfound = false;
 
-            ExerciseMethodShare.ResultBase[] rbArr = ExercisePatterns.CreateResBaseList();
+
 
             // choose all available exercise
-            List<ExerciseMethodShare.ResultBase> rb = rbArr.ToList();
+            List<ExerciseMethodShareDtNt.ResultBase> rb = CreateExercises.ExerciseDataFeed.ResultList();
 
-            //rb = (from r in rb where r.Exercise_Type == exType select r).ToList();
+            rb = (from r in rb where r.Exercise_Type == exType.Value select r).ToList();
 
-            List<string> exNames = new List<string>();
+            Dictionary<int, string> exNamesA = CreateExercises.ExerciseDataFeed.Routine_List(exType.Key);
             List<string> exercises = new List<string>();
-
             exercises = (from rs in rb select rs.Exercise_Name).Distinct().ToList();
 
+            List<string> exNames = new List<string>();
+            
             exNames = (from rEx in rb select rEx.Searched_exercise).Distinct().ToList();
+
+
             // divide exercises up
 
             // get a list of Exercises that match Chosen Exercise Type
 
             // get list of exercise routines to pick off exercises
-            string ExLoc = Properties.Resources.XMLLibrary.ToString();
-            ExLoc = ExLoc + @"\" ;
+            //string ExLoc = Properties.Resources.XMLLibrary.ToString();
+            //ExLoc = ExLoc + @"\" ;
             List<WorkOut> workOutsMain = new List<WorkOut>();
-
+            List<WorkOut> workOutsB = new List<WorkOut>();
             // loop over each exercise routine 
-            foreach(string s in exNames)
+            foreach(KeyValuePair<int, string> s in exNamesA)
             {
                 List<WorkOut> wOUT = new List<WorkOut>();
 
-                WorkOut[] wOutArr = ExercisePatterns.readExercise(s);
-                List<string> exercisess = new List<string>();
-                exercisess = (from r in wOutArr select r.Name).ToList();
+                wOUT = CreateExercises.ExerciseDataFeed.WorkOut_Regiment(s.Key);
+                //List<string> exercisess = new List<string>();
+                //exercisess = (from r in wOutArr select r.Name).ToList();
 
-                List<string> types = new List<string>();
+                List<string> ExTypes = new List<string>();
 
-                types = (from m in rb where m.Searched_exercise == s select m.Exercise_Type).Distinct().ToList(); 
+                //ExTypes = (from m in rb where m.Searched_exercise == s.Value select m.Exercise_Type).Distinct().ToList(); 
 
                 
                 // breakdown each routine
-                foreach(WorkOut wCheck in wOutArr )
+                foreach(WorkOut wCheck in wOUT)
                 {
-                    if (types.Count == 1  && types[0] ==  exType && exType != "Full Body")
-                    {
+                   
                         string wNm = wCheck.Name;
                         int wCnt = 0;
-                        wCnt = (from r in rb where r.Exercise_Name == wNm && r.Exercise_Type == exType select r).Count();
+                        wCnt = (from r in rb where r.Exercise_Name == wNm && r.Exercise_Type == exType.Value select r).Count();
                         if (wNm == "Rest" || wNm == "rest" || wNm == "Complete" || wNm == "complete" || wNm == "Break" ||wNm == "cobra" || wNm == "Cobra" || wNm == "cobra" || wNm == "child pose" || wNm == "Child Pose")
                         {
 
@@ -394,49 +412,28 @@ namespace xmlExerciseWriter
                         else if (wCnt < 1)
                         {
                             wCheck.Id = 0;
-                            workOutsMain.Add(wCheck);
+                            //workOutsMain.Add(wCheck);
+                            aiEx.Add(wCheck.Name);
                         }
                         else if (wCnt > 1)
                         {
                             currExs.Add(wCheck.Name);
                         }
-                    }
-                    else if (exType == "Full Body"  && types.Count >= 2)
-                    {
-                        string wNm = wCheck.Name;
-                        int wCnt = 0;
-                        wCnt = (from r in rb 
-                                
-                                where r.Exercise_Name == wNm && types.Contains(r.Exercise_Type ) select r).Count();
-                        if (wNm == "Rest" || wNm == "rest" || wNm == "Complete" || wNm == "complete")
-                        {
-
-                        }
-                        else if (wNm.Contains("stretch") || wNm.Contains("Child Pose"))
-                        {
-
-                        }
-                        else if (wCnt < 1)
-                        {
-                            wCheck.Id = 0;
-                            workOutsMain.Add(wCheck);
-                        }
-                        else if (wCnt > 1)
-                        {
-                            currExs.Add(wCheck.Name);
-                        }
-
-                    }
+                       
+                   
+                   
+                    
 
                 }
-                workOutsMain.AddRange(wOUT);      
+                //workOutsMain.AddRange(wOUT);      
             }
-            
-            List<string> aiEx = new List<string>();
-            aiEx = (from a in workOutsMain select a.Name).Distinct().ToList();
+
+            // = (from etAI in exNamesA select etAI.Value).Distinct().ToList();
+            //List<string> aiExA = aiEx.Except((List<string>)exercises).ToList();
+            //aiEx = (from a in workOutsMain select a.Name).Distinct().ToList();
             
             currExs = currExs.Distinct().ToList();
-
+            aiEx = aiEx.Distinct().ToList();
 
             // set exercises according to time
             if (timetoRun == 30)
@@ -444,12 +441,12 @@ namespace xmlExerciseWriter
                 if (chKNoBreak.Checked)
                 {
                     int r = (timetoRun  *  60) / 45;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
                 else
                 {
                     int r = timetoRun * 2;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
             }
             else if(timetoRun == 20)
@@ -457,12 +454,12 @@ namespace xmlExerciseWriter
                 if (chKNoBreak.Checked)
                 {
                     int r = (timetoRun * 60) / 40;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
                 else
                 {
                     int r = timetoRun * 2;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
             }
             else if (timetoRun == 15)
@@ -470,12 +467,12 @@ namespace xmlExerciseWriter
                 if (chKNoBreak.Checked)
                 {
                     int r = (timetoRun * 60) / 45;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
                 else
                 {
                     int r = timetoRun * 2;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
             }
             else if (timetoRun == 10)
@@ -483,19 +480,25 @@ namespace xmlExerciseWriter
                 if (chKNoBreak.Checked)
                 {
                     int r = (timetoRun * 60) / 40;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
                 else
                 {
                     int r = timetoRun * 2;
-                    fnSetExerciseDetails(r, bi, exType, aiEx, currExs);
+                    fnSetExerciseDetails(r, bi, exType.Value, aiEx, currExs);
                 }
             }
 
-            string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\" + txtRndRoutine.Text + ".xml";
-            int f = wo.Count;
-            fnwriteXML(fileloc);
-            int g = wo.Count;
+            //string fileloc = @"C:\Users\marcu\Documents\Code\ExerciseXML\" + txtRndRoutine.Text + ".xml";
+            int typeID = 0;//wo.Count;
+            
+
+            if (typeID == 0)
+            {
+                lbErr.Text = "You have missed the exercisr type selection";
+            }
+            fnwriteXML(exType.Key,txtRndRoutine.Text);
+            //int g = wo.Count;
         }
         // set the exercise out to each break and execise at a point in time
         private void fnSetExerciseDetails(int r ,  List<int> bi, string exRcs , List<string> ax , List<string> curr)
@@ -512,7 +515,7 @@ namespace xmlExerciseWriter
             }
             while (r > 0)
             {
-                ExerciseMethodShare.WorkOut w = new ExerciseMethodShare.WorkOut();
+                ExerciseMethodShareDtNt.WorkOut w = new ExerciseMethodShareDtNt.WorkOut();
 
                 if (exRcs == "Full Body" || exRcs == "No Break" )
                 {
@@ -550,7 +553,7 @@ namespace xmlExerciseWriter
 
                 bool directionFound = false;
                 string directionName = "";
-                ExerciseMethodShare.WorkOut w2 = new ExerciseMethodShare.WorkOut();
+                ExerciseMethodShareDtNt.WorkOut w2 = new ExerciseMethodShareDtNt.WorkOut();
 
 
                 if (breakfound == false)
