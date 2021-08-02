@@ -55,6 +55,8 @@
             this.chkLegsME = new System.Windows.Forms.CheckBox();
             this.chkABME = new System.Windows.Forms.CheckBox();
             this.chkUBME = new System.Windows.Forms.CheckBox();
+            this.lbRoutineTime = new System.Windows.Forms.Label();
+            this.txtRtneTme = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdExercises)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,7 +98,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(370, 400);
+            this.button1.Location = new System.Drawing.Point(716, 473);
             this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(200, 59);
@@ -320,11 +322,32 @@
             this.chkUBME.Text = "Upper Body";
             this.chkUBME.UseVisualStyleBackColor = true;
             // 
+            // lbRoutineTime
+            // 
+            this.lbRoutineTime.AutoSize = true;
+            this.lbRoutineTime.Location = new System.Drawing.Point(114, 406);
+            this.lbRoutineTime.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbRoutineTime.Name = "lbRoutineTime";
+            this.lbRoutineTime.Size = new System.Drawing.Size(200, 41);
+            this.lbRoutineTime.TabIndex = 26;
+            this.lbRoutineTime.Text = "Routine Time:";
+            // 
+            // txtRtneTme
+            // 
+            this.txtRtneTme.Location = new System.Drawing.Point(369, 391);
+            this.txtRtneTme.Margin = new System.Windows.Forms.Padding(6);
+            this.txtRtneTme.Name = "txtRtneTme";
+            this.txtRtneTme.Size = new System.Drawing.Size(261, 47);
+            this.txtRtneTme.TabIndex = 25;
+            this.txtRtneTme.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRtneTme_KeyDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1700, 1415);
+            this.Controls.Add(this.lbRoutineTime);
+            this.Controls.Add(this.txtRtneTme);
             this.Controls.Add(this.chkFBME);
             this.Controls.Add(this.chkLegsME);
             this.Controls.Add(this.chkABME);
@@ -389,6 +412,8 @@
         private System.Windows.Forms.CheckBox chkLegsME;
         private System.Windows.Forms.CheckBox chkABME;
         private System.Windows.Forms.CheckBox chkUBME;
+        private System.Windows.Forms.Label lbRoutineTime;
+        private System.Windows.Forms.TextBox txtRtneTme;
     }
 }
 

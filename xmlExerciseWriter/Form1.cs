@@ -34,14 +34,22 @@ namespace xmlExerciseWriter
                 Dictionary<int, string> type = CreateExercises.ExerciseDataFeed.Exercise_Types_List();
                 int EXType_ID = 0;
                 string Exname = "";
+                int exTime = 0;
                 if (String.IsNullOrEmpty(txtRoutine.Text))
                 {
                     lbErr.Text = lbErr.Text + "You have not entered an exercise Name";
                     err = false;
                     return;
                 }
-                Exname = txtRoutine.Text;
+                if (String.IsNullOrEmpty(txtRoutine.Text))
+                {
+                    lbErr.Text = lbErr.Text + "You have not entered an numeric value for routine time";
+                    err = false;
+                    return;
+                }
 
+                Exname = txtRoutine.Text;
+                bool exTtf = int.TryParse(txtRtneTme.Text, out exTime);
 
                 if (chkABME.Checked)
                 {
@@ -74,7 +82,7 @@ namespace xmlExerciseWriter
                 
 
 
-                fnwriteXML(EXType_ID, Exname);
+                fnwriteXML(EXType_ID, Exname, exTime);
 
 
             }
@@ -146,12 +154,12 @@ namespace xmlExerciseWriter
             }
         }
 
-        private void fnwriteXML(int ExType_ID, string name)
+        private void fnwriteXML(int ExType_ID, string name, int ExTme)
         {
 
             lbErr.Text = "";
 
-            CreateExercises.ExerciseDataFeed.Make_Exercise_Regiment(ExType_ID, name);
+            CreateExercises.ExerciseDataFeed.Make_Exercise_Regiment(ExType_ID, name, ExTme);
 
 
             foreach (ExerciseMethodShareDtNt.WorkOut w in wo)
@@ -497,7 +505,7 @@ namespace xmlExerciseWriter
             {
                 lbErr.Text = "You have missed the exercisr type selection";
             }
-            fnwriteXML(exType.Key,txtRndRoutine.Text);
+            fnwriteXML(exType.Key,txtRndRoutine.Text, timetoRun);
             //int g = wo.Count;
         }
         // set the exercise out to each break and execise at a point in time
@@ -833,6 +841,18 @@ namespace xmlExerciseWriter
             {
                 breakInterval.Add(300);
                 
+            }
+        }
+
+        private void txtRtneTme_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyValue >= 96 && e.KeyValue <= 105 )||(e.KeyValue >= 48 && e.KeyValue <= 57))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                lbErr.Text = "Please Enter a number";
             }
         }
     }
