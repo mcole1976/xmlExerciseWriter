@@ -717,7 +717,7 @@ namespace xmlExerciseWriter
                         {
                             if (ext.Name.Contains("right") || ext.Name.Contains("left")|| ext.Name.Contains("Right") || ext.Name.Contains("Left"))
                             {
-                                rl = false;
+                                rl = true;
                                 w.Name = fnSetWorkout(currExs, ax, newOld);
                                 if (exRcs == "Full Body")
                                 {

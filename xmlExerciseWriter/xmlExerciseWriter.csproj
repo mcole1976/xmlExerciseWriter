@@ -14,10 +14,10 @@
 
   <ItemGroup>
     <Reference Include="CreateExercises">
-      <HintPath>..\..\..\CreateExercises\CreateExercises\bin\Release\CreateExercises.dll</HintPath>
+      <HintPath>..\..\CreateExercises\CreateExercises\bin\Release\CreateExercises.dll</HintPath>
     </Reference>
     <Reference Include="ExerciseMethodShareDtNt">
-      <HintPath>..\..\..\ExerciseMethodShareDtNt\ExerciseMethodShareDtNt\bin\Release\netstandard2.0\ExerciseMethodShareDtNt.dll</HintPath>
+      <HintPath>..\..\CreateExercises\CreateExercises\bin\Release\ExerciseMethodShareDtNt.dll</HintPath>
     </Reference>
   </ItemGroup>
 
