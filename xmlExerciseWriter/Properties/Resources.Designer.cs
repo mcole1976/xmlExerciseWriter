@@ -61,7 +61,7 @@ namespace xmlExerciseWriter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\marcu\Documents\Code\ExerciseXML.
+        ///   Looks up a localized string similar to C:\Users\marcus\Documents\Code\ExerciseXML.
         /// </summary>
         public static string XMLExerciseLoc {
             get {
@@ -70,7 +70,7 @@ namespace xmlExerciseWriter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\marcu\Documents\Code\ExerciseXML\WorkoutLibrary.
+        ///   Looks up a localized string similar to C:\Users\marcus\Documents\Code\ExerciseXML\WorkoutLibrary.
         /// </summary>
         public static string XMLLibrary {
             get {
@@ -79,7 +79,7 @@ namespace xmlExerciseWriter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\marcu\Documents\Code\ExerciseXML\ReviewLoc.
+        ///   Looks up a localized string similar to C:\Users\marcus\Documents\Code\ExerciseXML\ReviewLoc.
         /// </summary>
         public static string XMLReview {
             get {

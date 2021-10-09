@@ -305,49 +305,49 @@ namespace xmlExerciseWriter
             int loopTime = 0;
             if (timetoRun == 30)
             {
-                controlledRuntime = (timetoRun * 60) - 20 ;
+                controlledRuntime = (timetoRun * 60) - 12 ;
                 
                 while (loopTime < controlledRuntime )
                 {
-                    loopTime = loopTime + 40;
+                    loopTime = loopTime + 48;
                     breakInterval.Add(loopTime);
-                    loopTime = loopTime + 20;
+                    loopTime = loopTime + 12;
 
                 }
             }
             else if (timetoRun == 20)
             {
-                controlledRuntime = (timetoRun * 60) - 20;
+                controlledRuntime = (timetoRun * 60) - 12;
 
                 while (loopTime < controlledRuntime)
                 {
-                    loopTime = loopTime + 40;
+                    loopTime = loopTime + 48;
                     breakInterval.Add(loopTime);
-                    loopTime = loopTime + 20;
+                    loopTime = loopTime + 12;
 
                 }
             }
             else if (timetoRun == 15)
             {
-                controlledRuntime = (timetoRun * 60) - 20;
+                controlledRuntime = (timetoRun * 60) - 12;
 
                 while (loopTime < controlledRuntime)
                 {
-                    loopTime = loopTime + 40;
+                    loopTime = loopTime + 48;
                     breakInterval.Add(loopTime);
-                    loopTime = loopTime + 20;
+                    loopTime = loopTime + 12;
 
                 }
             }
             else if (timetoRun == 10)
             {
-                controlledRuntime = (timetoRun * 60) - 20;
+                controlledRuntime = (timetoRun * 60) - 12;
 
                 while (loopTime < controlledRuntime)
                 {
-                    loopTime = loopTime + 40;
+                    loopTime = loopTime + 48;
                     breakInterval.Add(loopTime);
-                    loopTime = loopTime + 20;
+                    loopTime = loopTime + 12;
 
                 }
 
@@ -550,7 +550,7 @@ namespace xmlExerciseWriter
                         w.Id = totalTime - r;
                         if (exRcs == "Full Body")
                         {
-                            w.Time = 20;
+                            w.Time = 12;
                         }
                         else
                         {
@@ -597,12 +597,21 @@ namespace xmlExerciseWriter
                         }
                         else
                         {
-                            w.Time = 40;
-                            w2.Time = 40;
+                            if (chKNoBreak.Checked)
+                            {
+                                w.Time = 40;
+                                w2.Time = 40;
+                            }
+                            else
+                            {
+                                w.Time = 48;
+                                w2.Time = 48;
+                            }
                         }
                     }
                     else
                     {
+                        
                         w.Time = 30;
                         w2.Time = 30;
                     }
@@ -613,7 +622,8 @@ namespace xmlExerciseWriter
                 {
                     if (breakfound)
                     {
-                        c = c + 20;
+
+                        c = c + 12;
                     }
                     else
                     {
@@ -623,7 +633,15 @@ namespace xmlExerciseWriter
                         }
                         else
                         {
-                            c = c + 40;
+                            if (chKNoBreak.Checked)
+                            {
+                                c = c + 40;
+                            }
+                            else
+                            {
+                                c = c + 48;
+                            }
+                                
                         }
                     }
                 }
@@ -659,7 +677,7 @@ namespace xmlExerciseWriter
                             w3.Name = "Rest";
                             w3.Id = (totalTime - r) + 1;
                             w2.Id = w3.Id + 1;
-                            w3.Time = 20;
+                            w3.Time = 12;
                             wo.Add(w3);
                             r = r - 3;
                             c = c + (w3.Time + w2.Time);
@@ -686,8 +704,8 @@ namespace xmlExerciseWriter
                                 w2.Id = w2.Id + 1;
                                 if (exRcs == "Full Body")
                                 {
-                                    wRest.Time = 20;
-                                    c = c + 20;
+                                    wRest.Time = 12;
+                                    c = c + 12;
                                 }
                                 else
                                 {
@@ -721,7 +739,7 @@ namespace xmlExerciseWriter
                                 w.Name = fnSetWorkout(currExs, ax, newOld);
                                 if (exRcs == "Full Body")
                                 {
-                                    ext.Time = 40;
+                                    ext.Time = 48;
                                 }
                                 else 
                                 {
@@ -733,7 +751,7 @@ namespace xmlExerciseWriter
                                 rl = true;
                                 if (exRcs == "Full Body")
                                 {
-                                    ext.Time = 40;
+                                    ext.Time = 48;
                                 }
                                 else
                                 {

@@ -112,19 +112,19 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="XMLExerciseLoc" xml:space="preserve">
-    <value>C:\Users\marcu\Documents\Code\ExerciseXML</value>
+    <value>C:\Users\marcus\Documents\Code\ExerciseXML</value>
     <comment>xml exercise Loc</comment>
   </data>
   <data name="XMLLibrary" xml:space="preserve">
-    <value>C:\Users\marcu\Documents\Code\ExerciseXML\WorkoutLibrary</value>
+    <value>C:\Users\marcus\Documents\Code\ExerciseXML\WorkoutLibrary</value>
   </data>
   <data name="XMLReview" xml:space="preserve">
-    <value>C:\Users\marcu\Documents\Code\ExerciseXML\ReviewLoc</value>
+    <value>C:\Users\marcus\Documents\Code\ExerciseXML\ReviewLoc</value>
   </data>
 </root>
