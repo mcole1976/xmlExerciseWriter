@@ -62,18 +62,25 @@
             // 
             // txtExercise
             // 
+            this.txtExercise.AutoCompleteCustomSource.AddRange(new string[] {
+            "Sit Up",
+            "Push Up",
+            "Run in Place",
+            "High Knees"});
+            this.txtExercise.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtExercise.Location = new System.Drawing.Point(370, 182);
             this.txtExercise.Margin = new System.Windows.Forms.Padding(6);
             this.txtExercise.Name = "txtExercise";
-            this.txtExercise.Size = new System.Drawing.Size(261, 47);
+            this.txtExercise.Size = new System.Drawing.Size(409, 47);
             this.txtExercise.TabIndex = 0;
+            this.txtExercise.TextChanged += new System.EventHandler(this.txtExercise_TextChanged);
             // 
             // txtExTime
             // 
             this.txtExTime.Location = new System.Drawing.Point(370, 295);
             this.txtExTime.Margin = new System.Windows.Forms.Padding(6);
             this.txtExTime.Name = "txtExTime";
-            this.txtExTime.Size = new System.Drawing.Size(261, 47);
+            this.txtExTime.Size = new System.Drawing.Size(409, 47);
             this.txtExTime.TabIndex = 1;
             // 
             // lbExName
@@ -98,7 +105,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(716, 473);
+            this.button1.Location = new System.Drawing.Point(824, 480);
             this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(200, 59);
@@ -110,7 +117,7 @@
             // chkComp
             // 
             this.chkComp.AutoSize = true;
-            this.chkComp.Location = new System.Drawing.Point(716, 406);
+            this.chkComp.Location = new System.Drawing.Point(824, 423);
             this.chkComp.Margin = new System.Windows.Forms.Padding(6);
             this.chkComp.Name = "chkComp";
             this.chkComp.Size = new System.Drawing.Size(299, 45);
@@ -134,7 +141,7 @@
             this.txtRoutine.Location = new System.Drawing.Point(370, 80);
             this.txtRoutine.Margin = new System.Windows.Forms.Padding(6);
             this.txtRoutine.Name = "txtRoutine";
-            this.txtRoutine.Size = new System.Drawing.Size(261, 47);
+            this.txtRoutine.Size = new System.Drawing.Size(409, 47);
             this.txtRoutine.TabIndex = 7;
             // 
             // lbErr
@@ -285,7 +292,7 @@
             // chkFBME
             // 
             this.chkFBME.AutoSize = true;
-            this.chkFBME.Location = new System.Drawing.Point(740, 332);
+            this.chkFBME.Location = new System.Drawing.Point(848, 349);
             this.chkFBME.Name = "chkFBME";
             this.chkFBME.Size = new System.Drawing.Size(178, 45);
             this.chkFBME.TabIndex = 23;
@@ -295,7 +302,7 @@
             // chkLegsME
             // 
             this.chkLegsME.AutoSize = true;
-            this.chkLegsME.Location = new System.Drawing.Point(740, 252);
+            this.chkLegsME.Location = new System.Drawing.Point(848, 269);
             this.chkLegsME.Name = "chkLegsME";
             this.chkLegsME.Size = new System.Drawing.Size(117, 45);
             this.chkLegsME.TabIndex = 24;
@@ -305,7 +312,7 @@
             // chkABME
             // 
             this.chkABME.AutoSize = true;
-            this.chkABME.Location = new System.Drawing.Point(740, 167);
+            this.chkABME.Location = new System.Drawing.Point(848, 184);
             this.chkABME.Name = "chkABME";
             this.chkABME.Size = new System.Drawing.Size(106, 45);
             this.chkABME.TabIndex = 22;
@@ -315,7 +322,7 @@
             // chkUBME
             // 
             this.chkUBME.AutoSize = true;
-            this.chkUBME.Location = new System.Drawing.Point(740, 82);
+            this.chkUBME.Location = new System.Drawing.Point(848, 99);
             this.chkUBME.Name = "chkUBME";
             this.chkUBME.Size = new System.Drawing.Size(215, 45);
             this.chkUBME.TabIndex = 21;
@@ -337,7 +344,7 @@
             this.txtRtneTme.Location = new System.Drawing.Point(369, 391);
             this.txtRtneTme.Margin = new System.Windows.Forms.Padding(6);
             this.txtRtneTme.Name = "txtRtneTme";
-            this.txtRtneTme.Size = new System.Drawing.Size(261, 47);
+            this.txtRtneTme.Size = new System.Drawing.Size(410, 47);
             this.txtRtneTme.TabIndex = 25;
             this.txtRtneTme.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRtneTme_KeyDown);
             // 

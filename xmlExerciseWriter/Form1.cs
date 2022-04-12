@@ -17,6 +17,15 @@ namespace xmlExerciseWriter
         public Form1()
         {
             InitializeComponent();
+            var source = new AutoCompleteStringCollection();
+            List<string> s = CreateExercises.ExerciseDataFeed.MakeContainsList();
+            string[] sa = s.ToArray();
+            source.AddRange(sa);
+
+            txtExercise.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtExercise.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtExercise.AutoCompleteCustomSource = source;
+
             grdExercises.Columns.Add("WorkOut", "WorkOut");
             grdExercises.Columns.Add("Time", "Time");
         }
@@ -82,7 +91,7 @@ namespace xmlExerciseWriter
                 
 
 
-                fnwriteXML(EXType_ID, Exname, exTime);
+                fnwriteXML(EXType_ID, Exname, exTime, true);
 
 
             }
@@ -154,7 +163,7 @@ namespace xmlExerciseWriter
             }
         }
 
-        private void fnwriteXML(int ExType_ID, string name, int ExTme)
+        private void fnwriteXML(int ExType_ID, string name, int ExTme, bool noH)
         {
 
             lbErr.Text = "";
@@ -165,7 +174,10 @@ namespace xmlExerciseWriter
             foreach (ExerciseMethodShareDtNt.WorkOut w in wo)
             {
                 CreateExercises.ExerciseDataFeed.Make_Regiment_Record(0, w);
-                CreateExercises.ExerciseDataFeed.Make_Result_Base(w, ExType_ID, name);
+                if (noH)
+                {
+                    CreateExercises.ExerciseDataFeed.Make_Result_Base(w, ExType_ID, name);
+                }
             }
             wo.Clear();
             counter = 0;
@@ -295,7 +307,7 @@ namespace xmlExerciseWriter
                 
             }
             // creatine the exercise routine 
-            fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen);
+            fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen , false);
 
         }
 
@@ -355,7 +367,7 @@ namespace xmlExerciseWriter
         }
 
         
-        private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShareDtNt.WorkOut> wo, KeyValuePair<int,string> exType)
+        private void fnCreateRoutine(int timetoRun,  List<int> bi, ref List<ExerciseMethodShareDtNt.WorkOut> wo, KeyValuePair<int,string> exType, bool  nohistory)
         {
             List<string> currExs = new List<string>();
             List<string> aiEx = new List<string>();
@@ -423,7 +435,7 @@ namespace xmlExerciseWriter
                             //workOutsMain.Add(wCheck);
                             aiEx.Add(wCheck.Name);
                         }
-                        else if (wCnt > 1)
+                        else if (wCnt >= 1)
                         {
                             currExs.Add(wCheck.Name);
                         }
@@ -505,7 +517,7 @@ namespace xmlExerciseWriter
             {
                 lbErr.Text = "You have missed the exercisr type selection";
             }
-            fnwriteXML(exType.Key,txtRndRoutine.Text, timetoRun);
+            fnwriteXML(exType.Key,txtRndRoutine.Text, timetoRun, nohistory);
             //int g = wo.Count;
         }
         // set the exercise out to each break and execise at a point in time
@@ -823,11 +835,14 @@ namespace xmlExerciseWriter
             {
                 counter = r.Next(0, exercisesKnown.Count);
                 resName = exercisesKnown[counter];
+                exercisesKnown.RemoveAt(counter);
+
             }
             else
             {
                 counter = r.Next(0, exercisesUnknown.Count);
                  resName = exercisesUnknown[counter];
+                exercisesUnknown.RemoveAt(counter);
             }
             
             if (resName == "Rest"  || resName.Contains("Stretch")|| resName ==" Child Pose")
@@ -842,24 +857,17 @@ namespace xmlExerciseWriter
         {
             if (TotalTime == 30)
             {
-                breakInterval.Add(450);
-                breakInterval.Add(900);
-                breakInterval.Add(1350);
+                breakInterval.Add(600);
+                breakInterval.Add(1200);
             }else if (TotalTime == 20)
             {
-                breakInterval.Add(420);
-                breakInterval.Add(810);
+                breakInterval.Add(600);
             }
             else if (TotalTime == 15)
             {
-                breakInterval.Add(300);
-                breakInterval.Add(600);
+                breakInterval.Add(450);
             }
-            else  if (TotalTime == 10)
-            {
-                breakInterval.Add(300);
-                
-            }
+           
         }
 
         private void txtRtneTme_KeyDown(object sender, KeyEventArgs e)
@@ -872,6 +880,11 @@ namespace xmlExerciseWriter
             {
                 lbErr.Text = "Please Enter a number";
             }
+        }
+
+        private void txtExercise_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
