@@ -745,11 +745,26 @@ namespace xmlExerciseWriter
                 at = name.IndexOf(directionToLookFor);
                 resPortion = name.Substring(0, at).ToUpper();
 
+
+
                 returnResult = (from r in exs where r.ToUpper() == resPortion + directionName select r).FirstOrDefault();
                 if (string.IsNullOrEmpty(returnResult))
                 {
                     //returnResult = (from r in exs where r.ToUpper().Contains(resPortion) && r.ToUpper().Contains(directionName) select r).FirstOrDefault();
                     returnResult = resPortion + directionName;
+                    int removal = exs.FindIndex(q => q.StartsWith(returnResult));
+                    if (removal >0 )
+                    {
+                        exs.RemoveAt(removal);
+                    }
+                }
+                else
+                {
+                    int removal = exs.FindIndex(q => q.StartsWith(returnResult));
+                    if (removal > 0)
+                    {
+                        exs.RemoveAt(removal);
+                    }
                 }
             }
             else if (directionName == "LEFT")
@@ -764,6 +779,19 @@ namespace xmlExerciseWriter
                 {
                     //returnResult = (from r in exs where r.ToUpper().Contains(resPortion) && r.ToUpper().Contains(directionName) select r).FirstOrDefault();
                     returnResult = resPortion + directionName;
+                    int removal = exs.FindIndex(q => q.StartsWith(returnResult));
+                    if (removal > 0)
+                    {
+                        exs.RemoveAt(removal);
+                    }
+                }
+                else
+                {
+                    int removal = exs.FindIndex(q => q.StartsWith(returnResult));
+                    if (removal > 0)
+                    {
+                        exs.RemoveAt(removal);
+                    }
                 }
             }
 
