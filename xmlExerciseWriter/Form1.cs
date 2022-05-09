@@ -24,6 +24,11 @@ namespace xmlExerciseWriter
             txtExercise.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtExercise.AutoCompleteCustomSource = source;
 
+
+            txtAnchor.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtAnchor.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtAnchor.AutoCompleteCustomSource = source;
+
             grdExercises.Columns.Add("WorkOut", "WorkOut");
             grdExercises.Columns.Add("Time", "Time");
         }
@@ -182,8 +187,20 @@ namespace xmlExerciseWriter
             //Validation Code for entered Text time and exercise type
             if (String.IsNullOrEmpty(txtRndRoutine.Text))
             {
-                lbErr.Text = lbErr.Text = "Please Enter Your Routines Name";
-                return;
+
+                if (chkAnchor.Checked)
+                {
+                    if(string.IsNullOrWhiteSpace(txtAnchor.Text))
+                    {
+                        lbErr.Text = lbErr.Text = "Please Enter Your Anchor Exercise Name";
+                        return;
+                    }
+                }
+                else
+                {
+                    lbErr.Text = lbErr.Text = "Please Enter Your Routines Name";
+                    return;
+                }
             }
             if (Chk10.Checked == true)
             {
@@ -346,6 +363,8 @@ namespace xmlExerciseWriter
             //int compiledTime = 0;
             //bool breakfound = false;
 
+            
+
             // choose all available exercise
             List<ExerciseMethodShareDtNt.ResultBase> rb = CreateExercises.ExerciseDataFeed.ResultList();
 
@@ -369,10 +388,11 @@ namespace xmlExerciseWriter
             List<WorkOut> workOutsMain = new List<WorkOut>();
             List<WorkOut> workOutsB = new List<WorkOut>();
             // loop over each exercise routine
+
             foreach (KeyValuePair<int, string> s in exNamesA)
             {
                 List<WorkOut> wOUT = new List<WorkOut>();
-
+                counter++;
                 wOUT = CreateExercises.ExerciseDataFeed.WorkOut_Regiment(s.Key);
                 //List<string> exercisess = new List<string>();
                 //exercisess = (from r in wOutArr select r.Name).ToList();
@@ -487,7 +507,25 @@ namespace xmlExerciseWriter
             bool newOld = true;
             bool breakfound = false;
             int c = 0;
-            if (exRcs == "Full Body" || exRcs == "No Break")
+
+            List<string> anchors = new List<string>();
+
+            if (chkAnchor.Checked)
+            {
+                int anchorrun = r / 2;
+                int runVal = 0;
+                while (runVal <= anchorrun)
+                {
+                    anchors.Add(txtAnchor.Text);
+                    ++runVal;
+                }
+                ax = anchors;
+            }
+
+
+
+
+            if ((exRcs == "Full Body" || exRcs == "No Break") &(!chkAnchor.Checked) )
             {
                 currExs.AddRange(ax);
                 currExs.Distinct().ToList();
@@ -496,19 +534,33 @@ namespace xmlExerciseWriter
             {
                 ExerciseMethodShareDtNt.WorkOut w = new ExerciseMethodShareDtNt.WorkOut();
 
-                if (exRcs == "Full Body" || exRcs == "No Break")
+                if ((exRcs == "Full Body" || exRcs == "No Break")& !(chkAnchor.Checked))
                 {
                     newOld = false;
                 }
                 else
                 {
-                    if (r % 2 == 0 && r != 0)
+                    if (!chkAnchor.Checked)
                     {
-                        newOld = true;
+                        if (r % 2 == 0 && r != 0)
+                        {
+                            newOld = true;
+                        }
+                        else
+                        {
+                            newOld = false;
+                        }
                     }
                     else
                     {
-                        newOld = false;
+                        if (r % 4 == 0 && r != 0)
+                        {
+                            newOld = true;
+                        }
+                        else
+                        {
+                            newOld = false;
+                        }
                     }
                 }
 

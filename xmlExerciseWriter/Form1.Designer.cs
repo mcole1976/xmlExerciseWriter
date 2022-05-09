@@ -57,6 +57,8 @@
             this.chkUBME = new System.Windows.Forms.CheckBox();
             this.lbRoutineTime = new System.Windows.Forms.Label();
             this.txtRtneTme = new System.Windows.Forms.TextBox();
+            this.chkAnchor = new System.Windows.Forms.CheckBox();
+            this.txtAnchor = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdExercises)).BeginInit();
             this.SuspendLayout();
             // 
@@ -348,11 +350,30 @@
             this.txtRtneTme.TabIndex = 25;
             this.txtRtneTme.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRtneTme_KeyDown);
             // 
+            // chkAnchor
+            // 
+            this.chkAnchor.AutoSize = true;
+            this.chkAnchor.Location = new System.Drawing.Point(866, 1075);
+            this.chkAnchor.Name = "chkAnchor";
+            this.chkAnchor.Size = new System.Drawing.Size(298, 45);
+            this.chkAnchor.TabIndex = 27;
+            this.chkAnchor.Text = "Anchored Exercise";
+            this.chkAnchor.UseVisualStyleBackColor = true;
+            // 
+            // txtAnchor
+            // 
+            this.txtAnchor.Location = new System.Drawing.Point(914, 1164);
+            this.txtAnchor.Name = "txtAnchor";
+            this.txtAnchor.Size = new System.Drawing.Size(250, 47);
+            this.txtAnchor.TabIndex = 29;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1700, 1415);
+            this.ClientSize = new System.Drawing.Size(1770, 1415);
+            this.Controls.Add(this.txtAnchor);
+            this.Controls.Add(this.chkAnchor);
             this.Controls.Add(this.lbRoutineTime);
             this.Controls.Add(this.txtRtneTme);
             this.Controls.Add(this.chkFBME);
@@ -421,6 +442,8 @@
         private System.Windows.Forms.CheckBox chkUBME;
         private System.Windows.Forms.Label lbRoutineTime;
         private System.Windows.Forms.TextBox txtRtneTme;
+        private System.Windows.Forms.CheckBox chkAnchor;
+        private System.Windows.Forms.TextBox txtAnchor;
     }
 }
 
