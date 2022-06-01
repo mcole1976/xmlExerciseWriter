@@ -89,6 +89,8 @@ namespace xmlExerciseWriter
                 }
 
                 fnwriteXML(EXType_ID, Exname, exTime, true);
+                fnClearUpper();
+
             }
             else
             {
@@ -152,6 +154,20 @@ namespace xmlExerciseWriter
                     }
                 }
             }
+        }
+
+        private void fnClearUpper()
+        {
+            chkComp.Checked = false;
+            txtRtneTme.Text = "";
+            txtRoutine.Text = "";
+            chkComp.Checked = false;
+            chkUBME.Checked = false;
+            chkLegsME.Checked = false;
+            chkFBME.Checked = false;
+            chkABME.Checked = false;
+            txtRoutine.Focus();
+
         }
 
         private void fnwriteXML(int ExType_ID, string name, int ExTme, bool noH)
@@ -303,6 +319,24 @@ namespace xmlExerciseWriter
             }
             // creatine the exercise routine
             fnCreateRoutine(timetoRun, breakInterval, ref wo, exChosen, false);
+            fnClearLower();
+        }
+
+        private void fnClearLower()
+        {
+            txtAnchor.Text = "";
+            txtRndRoutine.Text = "";
+            chkAbs.Checked = false;
+            chkLegs.Checked = false;
+            chkAnchor.Checked = false;
+            chKNoBreak.Checked = false;
+            ckFullB.Checked = false;
+            Chk10.Checked = false;
+            chk15.Checked = false;
+            chk20.Checked = false;
+            Chk30.Checked = false;
+            txtRndRoutine.Focus();
+
         }
 
         private void fnSetTimeforFullBody(ref List<int> breakInterval, int timetoRun)
@@ -512,12 +546,17 @@ namespace xmlExerciseWriter
 
             if (chkAnchor.Checked)
             {
-                int anchorrun = r / 2;
+                int anchorrun = r ;
                 int runVal = 0;
                 while (runVal <= anchorrun)
                 {
                     anchors.Add(txtAnchor.Text);
-                    ++runVal;
+                    int removeAnchor = curr.IndexOf(anchors[0]);
+                    if (removeAnchor > 0)
+                    {
+                        currExs.RemoveAt(removeAnchor);
+                    }
+                    break;
                 }
                 ax = anchors;
             }
@@ -553,7 +592,16 @@ namespace xmlExerciseWriter
                     }
                     else
                     {
-                        if (r % 4 == 0 && r != 0)
+                        if((r % 4 == 0 && r != 0) && ckFullB.Checked)
+                        {
+                            newOld = false;
+                        }
+                        
+                        else if(chKNoBreak.Checked & r % 2 == 0 && r != 0)
+                        {
+                            newOld = true;
+                        }
+                        else if( r % 2 == 0)
                         {
                             newOld = true;
                         }
@@ -685,16 +733,44 @@ namespace xmlExerciseWriter
                             c = c + (w2.Time);
                             wo.Add(w2);
                         }
-                        else
+                        else//add the code for anchor
                         {
-                            w3.Name = "Rest";
-                            w3.Id = (totalTime - r) + 1;
-                            w2.Id = w3.Id + 1;
-                            w3.Time = 12;
-                            wo.Add(w3);
-                            r = r - 3;
-                            c = c + (w3.Time + w2.Time);
-                            wo.Add(w2);
+                            if (!chkAnchor.Checked)
+                            {
+                                w3.Name = "Rest";
+                                w3.Id = (totalTime - r) + 1;
+                                w2.Id = w3.Id + 1;
+                                w3.Time = 12;
+                                wo.Add(w3);
+                                r = r - 3;
+                                c = c + (w3.Time + w2.Time);
+                                wo.Add(w2);
+                            }
+                            else
+                            {
+                                WorkOut w4 = new WorkOut();
+                                WorkOut w5 = new WorkOut();
+                                //WorkOut w6 = new WorkOut();
+                                
+                                w3.Name = "Rest";
+                                w4.Name = txtAnchor.Text;
+                                w4.Time = w2.Time;
+                                w3.Id = (totalTime - r) + 1;
+                                w2.Id = w5.Id + 1;
+                                //w6 = w2;
+                                w4.Id = w3.Id + 1;
+                                w5.Id = w4.Id + 1;
+                                w3.Time = 12;
+                                w5 = w3;
+                                wo.Add(w3);//rest
+                                r = r - 3;
+                                r = r - 2;
+                                c = c + (w3.Time + w2.Time);
+                                c = c + (w4.Time + w5.Time);
+                                wo.Add(w4);
+                                wo.Add(w5);
+                                wo.Add(w2);
+                            }
 
                             //c = c + (w3.Time + w2.Time);
                         }
@@ -864,15 +940,24 @@ namespace xmlExerciseWriter
             }
             else
             {
-                counter = r.Next(0, exercisesUnknown.Count);
-                resName = exercisesUnknown[counter];
-                exercisesUnknown.RemoveAt(counter);
+                if (!chkAnchor.Checked)
+                {
+                    counter = r.Next(0, exercisesUnknown.Count);
+                    resName = exercisesUnknown[counter];
+                    exercisesUnknown.RemoveAt(counter);
+                }
+                else
+                {
+                    resName = exercisesUnknown[0];
+                }
             }
 
             if (resName == "Rest" || resName.Contains("Stretch") || resName == " Child Pose")
             {
                 resName = fnSetWorkout(exercisesKnown, exercisesUnknown, true);
             }
+
+            
 
             return resName;
         }

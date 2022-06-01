@@ -148,12 +148,11 @@
             // 
             // lbErr
             // 
-            this.lbErr.AutoSize = true;
-            this.lbErr.Location = new System.Drawing.Point(300, 900);
+            this.lbErr.Location = new System.Drawing.Point(57, 920);
             this.lbErr.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbErr.MinimumSize = new System.Drawing.Size(425, 164);
+            this.lbErr.MinimumSize = new System.Drawing.Size(425, 300);
             this.lbErr.Name = "lbErr";
-            this.lbErr.Size = new System.Drawing.Size(425, 164);
+            this.lbErr.Size = new System.Drawing.Size(700, 300);
             this.lbErr.TabIndex = 8;
             this.lbErr.Text = "   ";
             // 
@@ -228,7 +227,7 @@
             this.txtRndRoutine.Location = new System.Drawing.Point(336, 746);
             this.txtRndRoutine.Margin = new System.Windows.Forms.Padding(6);
             this.txtRndRoutine.Name = "txtRndRoutine";
-            this.txtRndRoutine.Size = new System.Drawing.Size(261, 47);
+            this.txtRndRoutine.Size = new System.Drawing.Size(450, 47);
             this.txtRndRoutine.TabIndex = 15;
             // 
             // lbRndName
@@ -364,7 +363,7 @@
             // 
             this.txtAnchor.Location = new System.Drawing.Point(914, 1164);
             this.txtAnchor.Name = "txtAnchor";
-            this.txtAnchor.Size = new System.Drawing.Size(250, 47);
+            this.txtAnchor.Size = new System.Drawing.Size(475, 47);
             this.txtAnchor.TabIndex = 29;
             // 
             // Form1
