@@ -527,7 +527,7 @@ namespace xmlExerciseWriter
 
             if (typeID == 0)
             {
-                lbErr.Text = "You have missed the exercisr type selection";
+                lbErr.Text = "You have missed the exercise type selection";
             }
             fnwriteXML(exType.Key, txtRndRoutine.Text, timetoRun, nohistory);
             //int g = wo.Count;
@@ -756,12 +756,14 @@ namespace xmlExerciseWriter
                                 w4.Name = txtAnchor.Text;
                                 w4.Time = w2.Time;
                                 w3.Id = (totalTime - r) + 1;
-                                w2.Id = w5.Id + 1;
+                                //w2.Id = w5.Id + 1;
                                 //w6 = w2;
                                 w4.Id = w3.Id + 1;
                                 w5.Id = w4.Id + 1;
                                 w3.Time = 12;
-                                w5 = w3;
+                                w2.Id = w5.Id + 1;
+                                w5.Time = w3.Time;
+                                w5.Name = w3.Name;
                                 wo.Add(w3);//rest
                                 r = r - 3;
                                 r = r - 2;
